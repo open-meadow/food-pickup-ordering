@@ -25,37 +25,55 @@
 
     <header>
 
-      <i class = "icon_here"></i>
-      <div>My Account</div>
+
+      <div id="my_acc">
+        <i class = "icon_here">==</i>
+        <span>My Account</span>
+      </div>
       <h1>2 Sam's and a Rohan</h1>
-      <section>
-        <form>
-          <label>Email</label>
-          <input type="text" id="userEmail" name="userEmail">
-          <label>Password</label>
-          <input type="text" id="userPW" name="userPW">
-          <button class = "button" type = "submit">Login</button>
-          <button class = "button" type = "submit">Register</button>
+      <section class = "login">
+        <form class = "login_form">
+          <section class = "email_password">
+            <div>
+
+              <input type="text" id="userEmail" placeholder="E-mail" name="userEmail">
+            </div>
+            <div>
+
+              <input type="text" id="userPW" placeholder="Password" name="userPW">
+            </div>
+          </section>
+
+          <section class = "login_register_buttons">
+            <button class = "button" type = "submit">Login</button>
+            <button id="register_button" class = "button" type = "submit">Register</button>
+          </section>
         </form>
       </section>
 
     </header>
 
 
-  <!-- LEFT PANE SECTION -->
+
     <section class = "flex_box">
+
+    <!-- LEFT PANE SECTION -->
       <section class = "left_pane">
         <h2> User information</h2>
         <section>
-          <p>name</p>
+          <p>name: name_here</p>
+          <p>e-mail: email_here</p>
+          <p>telephone: telephone#_here</p>
+          <button>edit</button>
         </section>
         <h2> Current order</h2>
         <section>
-          poopoo
+          mystery meat
+          <button>Cancel</button>
         </section>
         <h2> Previous orders</h2>
         <section>
-          poopoo
+          stretch
         </section>
 
         <!-- User information
@@ -74,6 +92,10 @@
   <!-- MENU SECTION -->
   <section class = "main_body">
         <h1> Menu</h1>
+        <section class = "cart_icon">
+          <i>View Cart</i>
+          <i>+</i>
+        </section>
         <!-- Menu -->
         <section class = "menu_box">
           <!-- add menu elements using the following structure: -->
