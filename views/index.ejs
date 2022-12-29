@@ -20,30 +20,47 @@
 
   <body>
 
+
+  <!-- HEADER SECTION -->
+
     <header>
 
-      <!-- Hamburger menu to open left pane
-            2 Sam's and a Rohan
-            <section>
-              Email form
-              Password form
-            </section>
-            <section>
-              Login button
-              Register button
-            </section>
-          -->
-
-      <div></div>
+      <i class = "icon_here"></i>
+      <div>My Account</div>
+      <h1>2 Sam's and a Rohan</h1>
+      <section>
+        <form>
+          <label>Email</label>
+          <input type="text" id="userEmail" name="userEmail">
+          <label>Password</label>
+          <input type="text" id="userPW" name="userPW">
+          <button class = "button" type = "submit">Login</button>
+          <button class = "button" type = "submit">Register</button>
+        </form>
+      </section>
 
     </header>
 
 
-    <section class = "flexbox">
-      <section class = "leftpane">
+  <!-- LEFT PANE SECTION -->
+    <section class = "flex_box">
+      <section class = "left_pane">
+        <h1> User information</h1>
+        <section>
+          <p>name</p>
+        </section>
+        <h1> Current order</h1>
+        <section>
+          poopoo
+        </section>
+        <h1> Previous orders</h1>
+        <section>
+          poopoo
+        </section>
+
         <!-- User information
           name (from DB)
-          email (from DB)
+          email (from DB)```````````````````````````````````
           phone (from DB)
           edit button (change DB information for user)
             popup?
@@ -52,12 +69,15 @@
         Previous orders ( ? )
           optional (same as current order but for previous order, retrieved from DB) -->
       </section>
-      <section class = "mainbody">
+
+
+  <!-- MENU SECTION -->
+      <section class = "main_body">
         <!-- Menu -->
-        <h2> Menu</h2>
-        <section class = "menubox">
+        <h1> Menu</h1>
+        <section class = "menu_box">
           <!-- add menu elements using the following structure: -->
-          <div class = "menuitem">
+          <div class = "menu_item">
             <button type = "submit">(add order +)</button>
             <img src = "from DB URL"></img>
             <span>name, description, price</span>
@@ -66,14 +86,40 @@
         </section>
         <!-- button (add item), picture, title (from DB), description ( ? from DB), cost -->
       </section>
-      <section class = "rightpane">
+
+
+<!-- RIGHT PANE SECTION -->
+
+      <section class = "right_pane">
+        <h1>Order summary</h1>
+        <section class = "menu_items">
+          <h1> Menu Items:</h1>
+          <!-- populate from DB whenever an order is added or removed -->
+          <div>
+            <button type = "submit">(increment up +)</button>
+            <span> # (from order object) menuItemName (from order object) price$ (calculated from order object price x quantity)<span>
+            <button type = "submit">(increment down -)</button>
+          </div>
+        </section>
+
+        <section class = "fees_box">
+          <h1>Fees</h1>
+          <p>Fees: our fees</p>
+          <p>Tax: pull from menu object x 13%</p>
+          <h1>Total</h1>
+          <p>$$$ total</p>
+        </section>
+
+        <button type = "submit">Confirm</button>
+        <button type = "submit">Cancel</button>
+
         <!-- Order summary
           current order (#, name, price)
         Fees
           Tax
           Service
         Total
-          Total cost (current order sum price + tax + servic) -->
+          Total cost (current order sum price + tax + service) -->
       </section>
     </section>
   </body>
