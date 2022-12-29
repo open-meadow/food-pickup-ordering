@@ -45,15 +45,15 @@
   <!-- LEFT PANE SECTION -->
     <section class = "flex_box">
       <section class = "left_pane">
-        <h1> User information</h1>
+        <h2> User information</h2>
         <section>
           <p>name</p>
         </section>
-        <h1> Current order</h1>
+        <h2> Current order</h2>
         <section>
           poopoo
         </section>
-        <h1> Previous orders</h1>
+        <h2> Previous orders</h2>
         <section>
           poopoo
         </section>
@@ -79,7 +79,7 @@
           <!-- add menu elements using the following structure: -->
           <div class = "menu_item">
             <button type = "submit">(add order +)</button>
-            <img src = "from DB URL"></img>
+            <img src = "http://cakebycourtney.com/wp-content/uploads/2018/05/IMG_6702.jpg"></img>
             <span>name, description, price</span>
             <!-- pull image, name, desc, price from DB -->
           </div>
@@ -92,26 +92,34 @@
 
       <section class = "right_pane">
         <h1>Order summary</h1>
-        <section class = "menu_items">
-          <h1> Menu Items:</h1>
-          <!-- populate from DB whenever an order is added or removed -->
-          <div>
-            <button type = "submit">(increment up +)</button>
-            <span> # (from order object) menuItemName (from order object) price$ (calculated from order object price x quantity)<span>
-            <button type = "submit">(increment down -)</button>
-          </div>
+
+        <section>
+          <h2> Menu Items:</h2>
+          <section class = "menu_items">
+            <!-- populate from order object whenever an order is added or removed -->
+            <div>
+              <button type = "submit">(+)</button>
+              <span> #  <span>
+              <button type = "submit">(-)</button>
+              <span> menuItemName<span>
+              <span> $</span>
+            </div>
+          </section>
         </section>
 
-        <section class = "fees_box">
-          <h1>Fees</h1>
-          <p>Fees: our fees</p>
-          <p>Tax: pull from menu object x 13%</p>
-          <h1>Total</h1>
-          <p>$$$ total</p>
+
+        <section>
+          <h2>Fees and Total</h2>
+          <section class = "fees_box">
+            <p>Fees: our fees</p>
+            <p>Tax: pull from menu object x 13%</p>
+            <p>Total: $$$ total</p>
+          </section>
         </section>
 
-        <button type = "submit">Confirm</button>
-        <button type = "submit">Cancel</button>
+
+        <button id="confirm" type = "submit">Confirm</button>
+        <button id="cancel" type = "submit">Cancel</button>
 
         <!-- Order summary
           current order (#, name, price)

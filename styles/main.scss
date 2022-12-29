@@ -19,7 +19,7 @@ body {
 
 header {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   background-color: #155A9A;
   color: floralwhite;
 }
@@ -34,6 +34,7 @@ header {
 .left_pane {
   height: 100vh;
   background-color: #EEEEEE;
+  width: 20em;
   padding: 1%;
 }
 
@@ -44,20 +45,46 @@ header {
 }
 
 .main_body {
-  width: 84rem;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .right_pane {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 30em;
   height: 100vh;
   background-color: #EEEEEE;
   padding: 1%;
 }
 
-.right_pane section {
+.menu_items,
+.fees_box {
   background-color: #D9D9D9;
-  height: 4em;
-  padding: 2%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  width: auto;
+  padding: 1em;
+}
+
+#confirm, #cancel {
+  color: floralwhite;
+  border-radius: 1em;
+  padding: 1em;
+  margin: 0.5rem;
+}
+
+#confirm {
+  background-color: #155A9A;
+}
+
+#cancel {
+  background-color: red;
+}
+
+img {
+  width: 5%;
 }
