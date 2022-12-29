@@ -1,24 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Home Page</title>
 
-<head>
-  <title>Home Page</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/app.js"></script>
+  </head>
 
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
-</head>
+<title></title>
 
-<body>
-  <h1>Have fun! 🥔</h1>
-</body>
+  <body>
 
+    <header>
+
+      <!-- Hamburger menu to open left pane
+            2 Sam's and a Rohan
+            <section>
+              Email form
+              Password form
+            </section>
+            <section>
+              Login button
+              Register button
+            </section>
+          -->
+
+      <div></div>
+
+    </header>
+
+
+    <section class = "flexbox">
+      <section class = "leftpane">
+        <!-- User information
+          name (from DB)
+          email (from DB)
+          phone (from DB)
+          edit button (change DB information for user)
+            popup?
+        Current (confirmed) order
+          populate with DB info (order #, menu items, quantity, total cost)
+        Previous orders ( ? )
+          optional (same as current order but for previous order, retrieved from DB) -->
+      </section>
+      <section class = "mainbody">
+        <!-- Menu -->
+        <h2> Menu</h2>
+        <section class = "menubox">
+          <!-- add menu elements using the following structure: -->
+          <div class = "menuitem">
+            <button type = "submit">(add order +)</button>
+            <img src = "from DB URL"></img>
+            <span>name, description, price</span>
+            <!-- pull image, name, desc, price from DB -->
+          </div>
+        </section>
+        <!-- button (add item), picture, title (from DB), description ( ? from DB), cost -->
+      </section>
+      <section class = "rightpane">
+        <!-- Order summary
+          current order (#, name, price)
+        Fees
+          Tax
+          Service
+        Total
+          Total cost (current order sum price + tax + servic) -->
+      </section>
+    </section>
+  </body>
 </html>
