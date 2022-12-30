@@ -78,7 +78,6 @@ const verifyCookie = () => {
 
 const verifyPassword = () => {
 
-
 }
 
 // Function 7: post new user to database
@@ -143,57 +142,16 @@ const updateUserPassword = (currentPassword, newPassword, email) => {
   // if bycrypt doesn't match return null
 };
 
+//FUNCTION 13: logout
+const logoutUser = function () {
+  // clear cookies
+    // req.session = null;
+  // change info on header to display login/register
+  // my account and cart not visible
+};
 
-// Function 11: create order object for current order array
-
-// {
-//   cartItems: [
-//     object1 =
-//       {orderItem,
-//       quantity,
-//       price},
-//     object2 =
-//       {orderItem,
-//       quantity,
-//       price}
-//     ],
-//   // function to add cartItems
-//     function addCartItems = () => {
-
-//     },
-//   // function calculates Fees
-//     // iterate through cartitem array
-//     // add all prices
-//     // *.1
-//   // function calculates tax
-//   // function calculates total cost
-// };
-
-
-// Function 12: post order object (function 10)
-// Need to figure out how we work with current order object before we code this
-
-
-//FUNCTION 13: logout?
-
-// NON DATABASE FUNCTIONS
-// Function: Create right pane element??? may be a script
-// Function: Create left pane element??? may be a script
-// Function: manipulate Current-order object
-
-
-// SCRIPTS
-// show right pane on click
-// Pull price from database (right pane)
-// Calculate Fees/tax
-// Calculate total
-
-
-// show left pane on click
-
-
-
-
+//FUNCTION 14: send SMS
+// the twilio api usage
 
 
 module.exports = { getUsers };
