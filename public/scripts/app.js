@@ -43,18 +43,18 @@ const createMenu = function(){
   // creates the hard coded menu above
 }
 const renderMenuItems = function(menuItems) {
-  for (menuItem in menuItems) {
+  for (let menuItem of menuItems) {
     let $menuItem = createMenuItem(menuItem);
     $('.menu_box').append($menuItem);
   }
 };
 const createMenuItem = function(menuItem) {
-  let $menuItem = $(
+  let $menuItem = (
     `<div class = "menu_item">
       <img src = "${menuItem.photo_url}"></img>
       <section class = "menu_text">
         <span><b>${menuItem.name}</b></span>
-        <span>${menuItem.price}</span>
+        <span>$${(menuItem.price)/100}</span>
         <p>${menuItem.desc}</p>
       </section>
       <button type = "submit">(+)</button>
