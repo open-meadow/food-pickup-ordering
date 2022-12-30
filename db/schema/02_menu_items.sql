@@ -6,4 +6,4 @@ CREATE TABLE menu_items (
   photo_url VARCHAR(255),
   desc VARCHAR(255),
   price INTEGER NOT NULL  -- price in cents
-)
+);

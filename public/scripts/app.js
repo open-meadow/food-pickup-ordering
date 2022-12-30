@@ -1,46 +1,52 @@
 // Client facing scripts here
-let menuItems = [
-  {
-    id: 1,
-    name: "hi",
-    photo_url: `https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg`,
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    price: 1001
-  },
-  {
-    id: 2,
-    name: "hi",
-    photo_url: `https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg`,
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    price: 1002
-  },
-  {
-    id: 3,
-    name: "hi",
-    photo_url: `https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg`,
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    price: 1003
-  },
-  {
-    id: 4,
-    name: "hi",
-    photo_url: `https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg`,
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    price: 1004
-  },
-  {
-    id: 5,
-    name: "hi",
-    photo_url: `https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg`,
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    price: 1005
-  },
-];
+
+const { getUsers } = require('db/queries/users.js');
+
+// let menuItems = [
+//   {
+//     id: 1,
+//     name: "hi",
+//     photo_url: `https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg`,
+//     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+//     price: 1001
+//   },
+//   {
+//     id: 2,
+//     name: "hi",
+//     photo_url: `https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg`,
+//     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+//     price: 1002
+//   },
+//   {
+//     id: 3,
+//     name: "hi",
+//     photo_url: `https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg`,
+//     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+//     price: 1003
+//   },
+//   {
+//     id: 4,
+//     name: "hi",
+//     photo_url: `https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg`,
+//     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+//     price: 1004
+//   },
+//   {
+//     id: 5,
+//     name: "hi",
+//     photo_url: `https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg`,
+//     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+//     price: 1005
+//   },
+// ];
 
 //FUNCTIONS
 //  MENU ITEM GENERATION
 const createMenu = function(){
   // creates the hard coded menu above
+  console.log(getMenuItems());
+  let menuItems = getMenuItems();
+  return menuItems;
 }
 const renderMenuItems = function(menuItems) {
   for (let menuItem of menuItems) {
@@ -104,7 +110,7 @@ const confirmOrder = () => {
 //SCRIPTS
 $(document).ready(function() {
   console.log("website is loaded ok");
-  renderMenuItems(menuItems);
+  renderMenuItems(createMenu());
 
   // move currentOrderCart init to login success
   let currentOrderCart = [];
