@@ -7,6 +7,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
 
+
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -38,6 +39,7 @@ app.use(
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
+const db = require('./db/connection');
 const loginRoutes = require('./routes/login');
 
 // Mount all resource routes
@@ -45,7 +47,7 @@ const loginRoutes = require('./routes/login');
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
-app.use('/users', usersRoutes);
+app.use('/users', usersRoutes(db));
 app.use('/login', loginRoutes);
 // Note: mount other resources here, using the same pattern above
 

@@ -7,13 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/grids-responsive-min.css" />
+
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
     <link rel="stylesheet" href="/vendor/border-box.css" />
     <link rel="stylesheet" href="/styles/main.css" />
     <link rel="stylesheet" href="/styles/layout.css" />
 
+
+
+
     <script src="/vendor/jquery-3.0.0.js"></script>
-    <script defer src="/scripts/app.js"></script>
+    <script type = "text/javascript" defer src="scripts/app.js"></script> 
   </head>
 
   <body>
@@ -28,10 +34,14 @@
         <i class = "icon_here">==</i>
         <span>My Account</span>
       </div>
+<<<<<<< HEAD
       <h1>2 Sam's and a Rohan</h1>
       <% if(user) { %>
         <div><%- user %></div>
       <% } %>
+=======
+      <h1 id = "menu_title">2 Sam's and a Rohan</h1>
+>>>>>>> 74259f74ce82bfa9f05b8eb547e971941c9568cd
       <section class = "login">
         <form action="/login" class = "login_form" method="POST">
           <section class = "email_password">
@@ -56,10 +66,10 @@
 
 
 
-    <section class = "flex_box">
+    <section class = "main_body pure-g">
 
     <!-- LEFT PANE SECTION -->
-      <section class = "left_pane">
+      <section class = "left_pane pure-u-1-5">
         <h2> User information</h2>
         <section>
           <p>name: name_here</p>
@@ -91,7 +101,7 @@
 
 
   <!-- MENU SECTION -->
-  <section class = "main_body">
+  <section class = "menu_body pure-u-3-5">
         <h1> Menu</h1>
         <section class = "cart_icon">
           <i>View Cart</i>
@@ -106,12 +116,12 @@
 
 <!-- RIGHT PANE SECTION -->
 
-      <section class = "right_pane">
+      <section class = "right_pane pure-u-1-5">
         <h1>Order summary</h1>
 
         <section>
           <h2> Menu Items:</h2>
-          <section class = "menu_items">
+          <section class = "cart_items">
             <!-- populate from order object whenever an order is added or removed -->
             <div>
               <button type = "submit">(+)</button>
