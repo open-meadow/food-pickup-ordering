@@ -62,7 +62,7 @@ app.get('/', (req, res) => {
     name: 'Alice'
   }
 
-  console.log(user);
+  // console.log(user);
   res.render('index', {user});
 });
 
