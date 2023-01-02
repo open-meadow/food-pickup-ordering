@@ -30,6 +30,11 @@ header {
   padding-left: 1em;
 }
 
+#my_acc:hover {
+  cursor: pointer;
+  width: 2em;
+}
+
 .email_password {
   display: flex;
   flex-direction: column;
