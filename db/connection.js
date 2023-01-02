@@ -7,10 +7,16 @@ const dbParams = {
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME
+  // host: 'localhost',
+  // port: 5432,
+  // user: 'labber',
+  // password: 'labber',
+  // database: 'midterm'
 };
 
 const db = new Pool(dbParams);
 
 db.connect();
+console.log("DB connected");
 
 module.exports = db;
