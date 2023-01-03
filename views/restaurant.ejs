@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home Page</title>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/grids-responsive-min.css" />
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+
+
+
+
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script type = "text/javascript" defer src="scripts/app.js"></script>
+  </head>
+
+  <body>
+
+
+  <!-- HEADER SECTION -->
+
+    <header>
+      <h1>2 Sam's and a Rohan</h1>
+    </header>
+
+
+
+    <section class = "main_body pure-g">
+
+    <!-- LEFT PANE SECTION -->
+      <section class = "left_pane pure-u-1-5">
+        <h2> User information</h2>
+        <section>
+          <p>name: name_here</p>
+          <p>e-mail: email_here</p>
+          <p>telephone: telephone#_here</p>
+          <button>edit</button>
+        </section>
+        <h2> Current order</h2>
+        <section>
+          mystery meat
+          <button>Cancel</button>
+        </section>
+        <h2> Previous orders</h2>
+        <section>
+          stretch
+        </section>
+
+        <!-- User information
+          name (from DB)
+          email (from DB)```````````````````````````````````
+          phone (from DB)
+          edit button (change DB information for user)
+            popup?
+        Current (confirmed) order
+          populate with DB info (order #, menu items, quantity, total cost)
+        Previous orders ( ? )
+          optional (same as current order but for previous order, retrieved from DB) -->
+      </section>
+
+
+  <!-- MENU SECTION -->
+  <section class = "menu_body pure-u-3-5">
+        <h1> Menu</h1>
+        <section class = "cart_icon">
+          <i>View Cart</i>
+          <i>+</i>
+        </section>
+        <!-- Menu -->
+        <section class = "menu_box">
+          <!-- add menu elements using the following structure: -->
+        </section>
+        <!-- button (add item), picture, title (from DB), description ( ? from DB), cost -->
+      </section>
+
+<!-- RIGHT PANE SECTION -->
+
+      <section class = "right_pane pure-u-1-5">
+        <h1>Order summary</h1>
+
+        <section>
+          <h2> Menu Items:</h2>
+          <section class = "cart_items">
+            <!-- populate from order object whenever an order is added or removed -->
+            <div>
+              <button type = "submit">(+)</button>
+              <span> #  <span>
+              <button type = "submit">(-)</button>
+              <span> menuItemName<span>
+              <span> $</span>
+            </div>
+          </section>
+        </section>
+
+        <section>
+          <h2>Fees and Total</h2>
+          <section class = "fees_box">
+            <p>Fees: our fees</p>
+            <p>Tax: pull from menu object x 13%</p>
+            <p>Total: $$$ total</p>
+          </section>
+        </section>
+
+
+        <button id="confirm" type = "submit">Confirm</button>
+        <button id="cancel" type = "submit">Cancel</button>
+
+        <!-- Order summary
+          current order (#, name, price)
+        Fees
+          Tax
+          Service
+        Total
+          Total cost (current order sum price + tax + service) -->
+      </section>
+    </section>
+  </body>
+</html>
