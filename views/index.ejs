@@ -21,15 +21,11 @@
     <script src="/vendor/jquery-3.0.0.js"></script>
     <script type = "text/javascript" defer src="scripts/app.js"></script>
   </head>
-
   <body>
 
 
   <!-- HEADER SECTION -->
-
     <header>
-
-
       <div id="my_acc">
         <i class = "icon_here">==</i>
         <span>My Account</span>
@@ -59,45 +55,10 @@
       </section>
 
     </header>
-
-
-
     <section class = "main_body pure-g">
 
-    <!-- LEFT PANE SECTION -->
-      <section class = "left_pane pure-u-1-5">
-        <h2> User information</h2>
-        <section>
-          <p>name: name_here</p>
-          <p>e-mail: email_here</p>
-          <p>telephone: telephone#_here</p>
-          <button>edit</button>
-        </section>
-        <h2> Current order</h2>
-        <section>
-          mystery meat
-          <button>Cancel</button>
-        </section>
-        <h2> Previous orders</h2>
-        <section>
-          stretch
-        </section>
-
-        <!-- User information
-          name (from DB)
-          email (from DB)```````````````````````````````````
-          phone (from DB)
-          edit button (change DB information for user)
-            popup?
-        Current (confirmed) order
-          populate with DB info (order #, menu items, quantity, total cost)
-        Previous orders ( ? )
-          optional (same as current order but for previous order, retrieved from DB) -->
-      </section>
-
-
   <!-- MENU SECTION -->
-  <section class = "menu_body pure-u-3-5">
+  <section class = "menu_body pure-u-18-24">
         <h1> Menu</h1>
         <section class = "cart_icon">
           <i>View Cart</i>
@@ -111,27 +72,19 @@
       </section>
 
 <!-- RIGHT PANE SECTION -->
-
-      <section class = "right_pane pure-u-1-5">
+      <section class = "right_pane pure-u-6-24">
         <h1>Order summary</h1>
 
         <section>
           <h2> Menu Items:</h2>
-          <section class = "cart_items">
-            <!-- populate from order object whenever an order is added or removed -->
-            <div>
-              <button type = "submit">(+)</button>
-              <span> #  <span>
-              <button type = "submit">(-)</button>
-              <span> menuItemName<span>
-              <span> $</span>
-            </div>
+          <section id="cart_items" class="cart_items">
+            <!--  -->
           </section>
         </section>
 
         <section>
           <h2>Fees and Total</h2>
-          <section class = "fees_box">
+          <section id ="fees_box" class ="fees_box">
             <p>Fees: our fees</p>
             <p>Tax: pull from menu object x 13%</p>
             <p>Total: $$$ total</p>
@@ -139,8 +92,8 @@
         </section>
 
 
-        <button id="confirm" type = "submit">Confirm</button>
-        <button id="cancel" type = "submit">Cancel</button>
+        <button id="confirm" type ="submit" onclick="cancelOrder()">Confirm</button>
+        <button id="cancel" type ="submit" onclick="cancelOrder()">Cancel</button>
 
         <!-- Order summary
           current order (#, name, price)
