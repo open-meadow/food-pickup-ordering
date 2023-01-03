@@ -1,3 +1,4 @@
+// renders order item and places it inside order-items
 const renderOrders = function(orders) {
   for(let order of orders) {
     let $orderItem = createOrderItem(order);
@@ -5,6 +6,7 @@ const renderOrders = function(orders) {
   }
 };
 
+// generates multiple order items
 const generateItem = function(items) {
   let row = ``;
   for (const item of items) {
@@ -14,13 +16,20 @@ const generateItem = function(items) {
       <td>${item.quantity}</td>
       <td>$${(item.price * item.quantity) / 100}</td>
     </tr>
-  `
+    `
   }
 
   return row;
 }
 
+// creates single order item
 const createOrderItem = function(order) {
+
+  // get time from datetime
+  const time = (order.created).split("T");
+  time[1] = time[1].slice(0, time[1].length - 8)
+
+  // console.log(time[1]);
 
   let $order = (`
   <p>${order.completed}</p>
@@ -54,7 +63,7 @@ const createOrderItem = function(order) {
           </table>
 
           <section class="time-values">
-            <span>Created at: ${order.created}</span>
+            <span>Created at: ${time[1]}</span>
             <form action="/send-sms" class="time-form" method="POST">
               <input
                 type="text"
@@ -74,21 +83,58 @@ const createOrderItem = function(order) {
 $(document).ready(function () {
   console.log("restaurant....ACTIVATE!!!!");
 
+  // if 'new button' is pressed, show new orders
   $("#new-button").click(function() {
     console.log("You have clicked New");
     $('.order-items').empty();
 
     $.get("/users/generateOrders")
     .then((response) => {
-      renderOrders(response);
-    })
+      console.log("This is the response", response);
+      const correctItems = [];
 
+      for (const singleResponse of response) {
+        console.log("Single response", singleResponse);
+
+        // for new orders, created time and required time is same
+        if (!singleResponse.completed && singleResponse.created === singleResponse.required_time) {
+          console.log("singletime is same");
+          correctItems.push(singleResponse);
+        }
+      }
+
+      renderOrders(correctItems);
+    })
+  });
+
+  // if 'completed button' is pressed, show completed orders
+  $("#completed-button").click(function() {
+    console.log("You have clicked completed");
+    $('.order-items').empty();
+
+    $.get("/users/generateOrders")
+    .then((response) => {
+      console.log("This is the response", response);
+      const correctItems = [];
+
+      for (const singleResponse of response) {
+        console.log("Single response", singleResponse);
+
+        // check if order is completed
+        if (singleResponse.completed) {
+          console.log("single is true");
+          correctItems.push(singleResponse);
+        }
+      }
+
+      renderOrders(correctItems);
+    })
   })
 
+  // default - render all orders
   $.get("/users/generateOrders")
     .then((response) => {
       console.log(response);
-      console.log("second", response[0].created);
       renderOrders(response);
     })
 })
