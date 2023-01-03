@@ -14,17 +14,19 @@ module.exports = (db) => {
 
   // route to create menu items /users/createMenu
   router.get('/createMenu', (req, res) => {
+    console.log("Before menu items..............")
     return db
     .query(
       `SELECT *
       FROM menu_items`
       )
-    .then ((result) => {
-      return res.json(result.rows); 
-    });
+    .then((result) => {
+      console.log("Menu items.......")
+      return res.json(result.rows);
+    })
   });
 
-  // 
+  //
   router.post('/completeOrder', (req, res) => {
     return db
     .query(

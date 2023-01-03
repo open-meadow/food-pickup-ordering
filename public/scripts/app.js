@@ -70,7 +70,11 @@ $(document).ready(function() {
     .then((response) => {
       renderMenuItems(response);
       // console.log(response);
+    })
+    .catch((err) => {
+      console.log("suckaaaa");
     });
+
 
   // move currentOrderCart init to login success
   let currentOrderCart = [];
@@ -80,21 +84,18 @@ $(document).ready(function() {
   // $(document) ready
   // generate the menu item objects and render
   renderMenuItems(menuItems);
-  // $(".menu_item").onclick(function() {
-  //   $(".menu_item").toggle(500);
-  // });
 
 // HEADER SCRIPT
   // $(my_account).onclick
     // animate left pane appearing
   $("#my_acc").click(function() {
-    $(".left_pane").toggle(500);
+    $(".left_pane pure-u-1-5").toggle(500);
   });
 
   // $(cart).onclick
     // animate right pane appearing
   $(".cart_icon").click(function() {
-    $(".right_pane").toggle(500);
+    $(".right_pane pure-u-1-5").toggle(500);
   });
 
 //LEFT PANE SCRIPTS
