@@ -83,25 +83,11 @@ $(document).ready(function() {
   renderMenuItems(menuItems);
 
 // HEADER SCRIPT
-  // $(my_account).onclick
-    // animate left pane appearing
-  $("#my_acc").click(function() {
-    $(".left_pane pure-u-1-5").toggle(500);
-  });
-
   // $(cart).onclick
     // animate right pane appearing
-  $(".cart_icon").click(function() {
-    $(".right_pane pure-u-1-5").toggle(500);
-  });
-
-// HEADER SCRIPT
-  // $(cart).onclick
-    // animate right pane appearing
-
-// CURRENT ORDER
-    // has a timer once $(submit order) onclick confirmed?
-    // start after API usage
+  // $(".cart_icon").click(function() {
+  //   $(".right_pane pure-u-1-5").toggle(500);
+  // });
 
 //RIGHT PANE SCRIPTS
   // $(remove order button from right-pane) onclick calculate fees, taxes, total
