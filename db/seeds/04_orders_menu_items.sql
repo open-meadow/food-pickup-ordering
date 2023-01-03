@@ -53,3 +53,35 @@ VALUES (
   4,
   2
 );
+
+INSERT INTO orders_menu_items (id, order_id, menu_item_id, quantity)
+VALUES (
+  8,
+  4,
+  7,
+  10
+);
+
+INSERT INTO orders_menu_items (id, order_id, menu_item_id, quantity)
+VALUES (
+  9,
+  4,
+  5,
+  9
+);
+
+INSERT INTO orders_menu_items (id, order_id, menu_item_id, quantity)
+VALUES (
+  10,
+  4,
+  3,
+  20
+);
+
+INSERT INTO orders_menu_items (id, order_id, menu_item_id, quantity)
+VALUES (
+  11,
+  4,
+  6,
+  9
+);
