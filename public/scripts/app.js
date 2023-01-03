@@ -20,6 +20,7 @@ const createMenuItem = function(menuItem) {
         <p>${menuItem.descrip}</p>
       </section>
       <button type = "submit">(+)</button>
+      <button type = "submit">(-)</button>
     </div>`);
   return $menuItem;
 }
@@ -70,11 +71,7 @@ $(document).ready(function() {
     .then((response) => {
       renderMenuItems(response);
       // console.log(response);
-    })
-    .catch((err) => {
-      console.log("suckaaaa");
     });
-
 
   // move currentOrderCart init to login success
   let currentOrderCart = [];
@@ -98,24 +95,15 @@ $(document).ready(function() {
     $(".right_pane pure-u-1-5").toggle(500);
   });
 
-//LEFT PANE SCRIPTS
-  // $(edit information button) onclick
-    // create field to update users.name/phone/password
-    // $(submit edit?) onclick set change to DB
-  // current order
+// HEADER SCRIPT
+  // $(cart).onclick
+    // animate right pane appearing
+
+// CURRENT ORDER
     // has a timer once $(submit order) onclick confirmed?
     // start after API usage
 
 //RIGHT PANE SCRIPTS
-  // $(add order button from menu/right-pane) onclick add item
-    // createCartItem()
-    // addCartItem()
-  // $(add order button from menu/right-pane) onclick calculate fees, taxes, total
-    // calculateFees()
-    // calculateTaxes()
-    // calculateTotalCost()
-    // reload right pane items
-
   // $(remove order button from right-pane) onclick calculate fees, taxes, total
     // remove right pane item
     // calculateFees()
