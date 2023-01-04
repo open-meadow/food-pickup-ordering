@@ -87,17 +87,20 @@ const createOrderItem = function (order) {
       $order += `<div id=${id_name}></div>`;
 
       let reqDate = new Date(order.required_time).getTime();
-      // let createdDate = new Date(order.created).getTime();
+      let createdDate = new Date(order.created).getTime();
 
-      console.log("order id", order.id);
+      // console.log("order id", order.id);
       console.log("req date", new Date(reqDate));
+
+      sessionStorage.newTime = reqDate;
+      // sessionStorage.newTime += 60000;
 
 
       const timer = setInterval((id_name) => {
         // get current date and time
-        let currentTime = new Date();
-        let timeDifference = reqDate - currentTime;
-        console.log("time difference", new Date(timeDifference));
+        let currentTime = new Date().getTime();
+        let timeDifference = sessionStorage.newTime - currentTime;
+        // console.log("order id", order.id, "time difference", new Date(timeDifference));
 
         // distance between currentTime and timeDifference
         // let remaining =  currentTime - timeDifference;
@@ -109,7 +112,19 @@ const createOrderItem = function (order) {
         if(timeDifference < 0) {
           clearInterval(timer);
           document.getElementById(`${id_name}`).innerHTML = "Time up";
-          order.completed = true;
+          // order.completed = true;
+          // return;
+          document.getElementById(`${id_name}`).innerHTML += `
+          <div>
+            <form action="/users/updateComplete" class="time-form" method="POST">
+              <input type="hidden" name="order_id" value="${order.id}"/>
+              <button type="submit">click here</button>
+            </form>
+          </div>`
+          // $.post("users/updateComplete")
+          // .then((response) => {
+          //   console.log("compleeeete");
+          // })
         }
 
       }, 1000, id_name)
@@ -120,7 +135,7 @@ const createOrderItem = function (order) {
     }
   } else {
     // get start time from datetime
-    const finishedTime = order.created.split("T");
+    const finishedTime = order.required_time.split("T");
     finishedTime[1] = finishedTime[1].slice(0, finishedTime[1].length - 8);
 
     $order += `
@@ -148,6 +163,8 @@ function msToTime(duration) {
 
 $(document).ready(function () {
   console.log("restaurant....ACTIVATE!!!!");
+
+  sessionStorage.newTime = new Date().getTime();
 
   // if 'new button' is pressed, show new orders
   $("#new-button").click(function () {
@@ -211,14 +228,5 @@ $(document).ready(function () {
   $.get("/users/generateOrders").then((response) => {
     renderOrders(response);
   });
-
-  // post button - onclick
-  $.post("/users/addTime")
-  .then((res) => {
-    console.log("cool");
-  })
-  .catch((err) => {
-    console.log("who cares");
-  })
 
 });
