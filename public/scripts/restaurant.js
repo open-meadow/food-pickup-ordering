@@ -80,33 +80,21 @@ const createOrderItem = function (order) {
   </section>
 </section>`;
     } else {
-
+      // create interactive timer
       let id_name = "order_" + order.id;
       $order += `<div id=${id_name}></div>`;
 
       let reqDate = new Date(order.required_time).getTime();
       let createdDate = new Date(order.created).getTime();
 
-      console.log("req date", reqDate);
-      console.log("created date", createdDate);
-
-      // console.log("time difference", (reqDate - createdDate));
-      const timeDifference = reqDate - createdDate;
-      let newTime = new Date(timeDifference).getTime();
-      console.log("time difference", newTime);
-
       setInterval((id_name) => {
         let currentTime = new Date();
-        let remaining = reqDate - currentTime;
+        let remaining = currentTime - reqDate;
 
         const now = msToTime(remaining);
-        // console.log("now1", now);
-        // console.log(id_name);
+
         document.getElementById(`${id_name}`).innerHTML = now;
       }, 1000, id_name)
-
-      // console.log("time difference to string", timeDifference.toString());
-      // console.log("countdown value", countdown);
 
       $order += `
           </section>
