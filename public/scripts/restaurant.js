@@ -24,13 +24,10 @@ const generateItem = function (items) {
 
 // creates single order item
 const createOrderItem = function (order) {
-  console.log("order", order);
 
   // get start time from datetime
   const time = order.created.split("T");
   time[1] = time[1].slice(0, time[1].length - 8);
-
-  // console.log(time[1]);
 
   let $order = `
   <section class="order-item">
@@ -69,11 +66,16 @@ const createOrderItem = function (order) {
   if (!order.completed) {
     if (order.created === order.required_time) {
       $order += `
-    <form action="/send-sms" class="time-form" method="POST">
+    <form action="/users/addTime" class="time-form" method="POST">
               <input
                 type="text"
-                id="time"
+                name="extra-time"
                 placeholder="Time till order finishes"
+              />
+              <input
+                type="hidden"
+                name="order_id"
+                value="${order.id}"
               />
     <button type="submit">Submit</button>
     </form>
@@ -87,13 +89,24 @@ const createOrderItem = function (order) {
       let reqDate = new Date(order.required_time).getTime();
       let createdDate = new Date(order.created).getTime();
 
-      setInterval((id_name) => {
-        let currentTime = new Date();
-        let remaining = currentTime - reqDate;
+      let timeDifference = reqDate - createdDate;
 
-        const now = msToTime(remaining);
+      setInterval((id_name) => {
+        // get current date and time
+        let currentTime = new Date();
+
+        // distance between currentTime and timeDifference
+        let remaining = timeDifference - currentTime;
+
+        let now = msToTime(remaining);
 
         document.getElementById(`${id_name}`).innerHTML = now;
+
+        if(remaining < 0) {
+          clearInterval();
+          order.completed = true;
+        }
+
       }, 1000, id_name)
 
       $order += `
@@ -133,22 +146,16 @@ $(document).ready(function () {
 
   // if 'new button' is pressed, show new orders
   $("#new-button").click(function () {
-    console.log("You have clicked New");
     $(".order-items").empty();
 
     $.get("/users/generateOrders").then((response) => {
-      console.log("This is the response", response);
       const correctItems = [];
-
       for (const singleResponse of response) {
-        console.log("Single response", singleResponse);
-
         // for new orders, created time and required time is same
         if (
           !singleResponse.completed &&
           singleResponse.created === singleResponse.required_time
         ) {
-          console.log("singletime is same");
           correctItems.push(singleResponse);
         }
       }
@@ -159,19 +166,13 @@ $(document).ready(function () {
 
   // if 'completed button' is pressed, show completed orders
   $("#completed-button").click(function () {
-    console.log("You have clicked completed");
     $(".order-items").empty();
 
     $.get("/users/generateOrders").then((response) => {
-      console.log("This is the response", response);
       const correctItems = [];
-
       for (const singleResponse of response) {
-        console.log("Single response", singleResponse);
-
         // check if order is completed
         if (singleResponse.completed) {
-          console.log("single is true");
           correctItems.push(singleResponse);
         }
       }
@@ -182,16 +183,12 @@ $(document).ready(function () {
 
   // if pending button is pressed
   $("#pending-button").click(function () {
-    console.log("You have clicked pending");
     $(".order-items").empty();
 
     $.get("/users/generateOrders").then((response) => {
-      console.log("This is the response", response);
       const correctItems = [];
 
       for (const singleResponse of response) {
-        console.log("Single response", singleResponse);
-
         // check if order is completed
         if (
           !singleResponse.completed &&
@@ -207,7 +204,10 @@ $(document).ready(function () {
 
   // default - render all orders
   $.get("/users/generateOrders").then((response) => {
-    console.log(response);
     renderOrders(response);
   });
+
+  // post button - onclick
+  $.post("/users/addTime")
+
 });

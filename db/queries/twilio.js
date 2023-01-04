@@ -1,36 +1,35 @@
-const db = require('../connection');
-
 // Download the helper library from https://www.twilio.com/docs/node/install
 // Find your Account SID and Auth Token at twilio.com/console
 // and set the environment variables. See http://twil.io/secure
-const accountSid = ACed0f4de7ac43019039992fa77cda9658;
-const authToken = '83ff14a9bab35cdd25d040c6675f225c';
-const authToken = `83ff14a9bab35cdd25d040c6675f225c`;
-const client = require('twilio')(accountSid, authToken);
+require('dotenv').config()
 
-client.messages
-  .create({
-    to: '+6473776171',
-    from: '+19897955570',
-    body: 'This is the ship that made the Kessel Run in fourteen parsecs?'
-     body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
-     from: '+19897955570',
-     to: '+16473776171'
-   })
-  .then(message => console.log(message.sid));
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken); 
 
-const express = require('express');
-const { MessagingResponse } = require('twilio').twiml;
+function sendClientText(clientPhone, orderTime) {
+  return client.messages 
+  .create({ 
+    to: `+1${clientPhone}`, 
+    messagingServiceSid: 'MG1722efd2941c77fbbb8a7d3aff316147',      
+    body: `Your order will be ready for pickup in ${Math.ceil(orderTime/60)} minutes.`
+  }) 
+  .then(message => console.log(message.sid)) 
+  .done();
+};
 
-const app = express();
-app.post('/sms', (req, res) => {
-  const twiml = new MessagingResponse();
-  
-  twiml.message('The Robots are coming! Head for the hills!');
-  
-  res.type('text/xml').send(twiml.toString());
-});
-  
-app.listen(3000, () => {
-  console.log('Express server listening on port 3000');
-});
+function sendRestoText(bodyMSG) {
+  return client.messages 
+  .create({ 
+    to: '+hard coded resto phone #', 
+    messagingServiceSid: 'MG1722efd2941c77fbbb8a7d3aff316147',      
+    body: `new order ${bodyMSG}`
+  }) 
+  .then (message => console.log(message.sid)) 
+  .done();
+};
+
+module.exports = { 
+  sendClientText,
+  sendRestoText
+}
