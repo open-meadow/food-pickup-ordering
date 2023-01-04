@@ -199,6 +199,10 @@ $(document).ready(function() {
     $("#myModal").css("display", "block");
   });
 
+  $("#cancel").click(function(){
+    clearOrder();
+  });
+
   $("#close_order_button").click(function() {
     $("#myModal").css("display", "none");
   })
