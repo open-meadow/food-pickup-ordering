@@ -66,7 +66,6 @@ function renderCurrentOrderPane() {
 
   if (typeof(Storage) !== "undefined") {
     for (key in localStorage) {
-      // push keys to array, sort and return by sorted
       if (typeof localStorage[key] !== "function" && key !== "length") {
         document.getElementById("cart_items").innerHTML += `<li>${localStorage[key]} times x ${allMenuItems[key-1].name} name $${allMenuItems[key-1].price * localStorage[key] / 100} price</li>`
       }
@@ -109,21 +108,43 @@ function renderTotals() {
       <p>$${(feesObject.totalCost/100).toFixed(2)}</p>`;
 }
 
-
-const confirmOrder = () => {
+const confirmOrder = (fieldname, fieldphone) => {
   // confirm name & phone #
+  // place into session storage
+  // sessionStorage.name = fieldname
+  // sessionStorage.phone = fieldphone
 }
 const completeOrder = () => {
-    // Insert statements:
-    // INSERT INTO users (name, phone) VALUES ();
+  // INSERT USERS FROM SESSION STORAGE <== different function?
+  // INSERT INTO users (name, phone) VALUES () RETURNING id; from localstage confirmOrder
+  // $.post the order insert from  object
+  
+  // INSERT ORDERS (TOTAL) FROM FUNCTION <== different function?
+    // let x = calculateTotals();
+    // x.user_id (from comfirm Order <-> local storage), x.total_cost, x.fees, x.tax, x.timestamp (generate)
+    // INSERT INTO orders (total_cost, tax, created) VALUES ();  
+  
+  // INSERT ORDERS_MENU_ITEM FROM FUNCTION
+    if (typeof(Storage) !== "undefined") {
+      for (key in localStorage) {
+        if (typeof localStorage[key] !== "function" && key !== "length") {
+          currentOrderCart[key] = localStorage[key]
+        }
+      }
+    };
+    // console.log(currentOrderCart)
     // (FOR EACH menu item) - INSERT INTO orders_menu_items (quantity) VALUES ();
-      // Use pullStorageCart function
-    // INSERT INTO orders (total_cost, tax, created) VALUES ();
+    for (key in currentOrderCart) {
+      // POST INSERT
+    };
   localStorage.clear();
-}
+  sessionStorage.clear();
+}; 
 const cancelOrder = () => {
   localStorage.clear();
+  sessionStorage.clear();
   renderCurrentOrderPane();
+  renderTotals();
 };
 
 //SCRIPTS
@@ -143,8 +164,7 @@ $(document).ready(function() {
 
 // currentOrderCart init on load
   allMenuItems = [];
-  currentOrderCart = {localStorage};
-  currentTotals = {};
+  currentOrderCart = {};
 
   $("confirm").click(function(){
     completeOrder();
