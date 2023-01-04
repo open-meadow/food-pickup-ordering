@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home Page</title>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+      integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/grids-responsive-min.css"
+    />
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/restaurant.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" defer src="scripts/restaurant.js"></script>
+  </head>
+
+  <body>
+    <!-- HEADER SECTION -->
+
+    <header>
+      <h1>2 Sam's and a Rohan</h1>
+    </header>
+
+    <section class="main_body">
+      <!-- NEW SECTION -->
+      <h1>Orders</h1>
+      <!-- Orders -->
+      <div class="order-type">
+        <button id="new-button" type="menu">New</button>
+        <button id="pending-button" type="menu">Pending</button>
+        <button id="completed-button" type="menu">Completed</button>
+      </div>
+
+      <section class="order-items">
+        <!-- orders will be added here -->
+      </section>
+      <!-- END OF order-items -->
+    </section>
+    <!-- end of main body -->
+  </body>
+</html>

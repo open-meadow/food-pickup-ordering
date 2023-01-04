@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS orders_menu_items.sql CASCADE;
+DROP TABLE IF EXISTS orders_menu_items CASCADE;
 
 CREATE TABLE orders_menu_items (
   id SERIAL PRIMARY KEY NOT NULL,

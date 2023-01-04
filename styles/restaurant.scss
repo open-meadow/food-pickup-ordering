@@ -1,0 +1,53 @@
+.main_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.order-item {
+  background-color: floralwhite;
+  padding: 1em;
+  width: 100em;
+  margin: 1em 0;
+}
+
+.order-no {
+  font-weight: 600;
+  font-size: 3em;
+  padding: 0.3em 0;
+}
+
+table {
+  margin-bottom: 0.7em;
+}
+
+th, td {
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.column-names {
+  border-bottom: 1px solid lightgrey;
+  text-align: left;
+}
+
+.order-table {
+  border: 1px solid lightgray;
+}
+
+.order-type {
+  padding: 0 0 1em 0;
+}
+
+.total-cost {
+  font-weight: 600;
+  border-top: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
+  padding: 0.5em 0;
+}
+
+.time-values {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7em 0;
+}

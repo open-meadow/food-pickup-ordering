@@ -7,7 +7,7 @@ CREATE TABLE orders (
   user_notes VARCHAR(255),
   fees INTEGER NOT NULL,  -- in cents
   tax INTEGER NOT NULL,   -- in cents
-  updated TIMESTAMP,      -- make it automatic?
   created TIMESTAMP,
-  completed TIMESTAMP
+  required_time TIMESTAMP,      -- make it automatic?
+  completed BOOLEAN
 )
