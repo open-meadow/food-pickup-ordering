@@ -98,7 +98,6 @@ const createOrderItem = function (order) {
         // distance between currentTime and timeDifference
         let remaining = timeDifference - currentTime;
 
-        console.log("remaining", remaining);
         let now = msToTime(remaining);
 
         document.getElementById(`${id_name}`).innerHTML = now;
@@ -147,22 +146,16 @@ $(document).ready(function () {
 
   // if 'new button' is pressed, show new orders
   $("#new-button").click(function () {
-    // console.log("You have clicked New");
     $(".order-items").empty();
 
     $.get("/users/generateOrders").then((response) => {
-      console.log("This is the response", response);
       const correctItems = [];
-
       for (const singleResponse of response) {
-        // console.log("Single response", singleResponse);
-
         // for new orders, created time and required time is same
         if (
           !singleResponse.completed &&
           singleResponse.created === singleResponse.required_time
         ) {
-          // console.log("singletime is same");
           correctItems.push(singleResponse);
         }
       }
@@ -173,19 +166,13 @@ $(document).ready(function () {
 
   // if 'completed button' is pressed, show completed orders
   $("#completed-button").click(function () {
-    // console.log("You have clicked completed");
     $(".order-items").empty();
 
     $.get("/users/generateOrders").then((response) => {
-      console.log("This is the response", response);
       const correctItems = [];
-
       for (const singleResponse of response) {
-        // console.log("Single response", singleResponse);
-
         // check if order is completed
         if (singleResponse.completed) {
-          // console.log("single is true");
           correctItems.push(singleResponse);
         }
       }
@@ -196,16 +183,12 @@ $(document).ready(function () {
 
   // if pending button is pressed
   $("#pending-button").click(function () {
-    // console.log("You have clicked pending");
     $(".order-items").empty();
 
     $.get("/users/generateOrders").then((response) => {
-      // console.log("This is the response", response);
       const correctItems = [];
 
       for (const singleResponse of response) {
-        // console.log("Single response", singleResponse);
-
         // check if order is completed
         if (
           !singleResponse.completed &&
@@ -221,18 +204,10 @@ $(document).ready(function () {
 
   // default - render all orders
   $.get("/users/generateOrders").then((response) => {
-    // console.log(response);
     renderOrders(response);
   });
 
   // post button - onclick
   $.post("/users/addTime")
-  .then((response) => {
-    // console.log("You have clicked addtime");
-    // console.log("Response", response);
-    $.get("/users/generateOrders").then((response) => {
-      // console.log(response);
-      renderOrders(response);
-    });
-  })
+
 });

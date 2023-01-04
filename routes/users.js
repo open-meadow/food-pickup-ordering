@@ -74,20 +74,15 @@ module.exports = (db) => {
     return db
     .query(`SELECT * FROM orders;`)
     .then((result) => {
-      // console.log("++++", result.rows);
       const orders = result.rows;
 
       return db.query(`SELECT *
       FROM orders_menu_items
       JOIN menu_items ON orders_menu_items.menu_item_id = menu_items.id;`)
       .then((result2) => {
-        // console.log("----", result2.rows);
         orders.forEach(order => {
           order.items = getItems(order.id, result2.rows);
         });
-
-        // console.log("After orders...", orders);
-
 
         return res.json(orders);
 
@@ -96,29 +91,18 @@ module.exports = (db) => {
   });
 
   router.post('/addTime', (req, res) => {
-    // console.log("You have clicked addTime");
-    // console.log("This is req", req.body);
-
+    // increase required_time
     const order_id = req.body["order_id"];
-    console.log("order_id ", order_id);
 
     let additionalTime = req.body["extra-time"];
     additionalTime = additionalTime * 60000;
-    // console.log("Additional Time in ms: ", additionalTime);
 
     return db
     .query(`SELECT * FROM orders WHERE orders.id = $1;`, [order_id])
     .then((result) => {
       // calculate new time
-
-      // console.log("result.rows ", result.rows[0].required_time);
-      let reqTime = new Date(result.rows[0].required_time).getTime();
-
-      // console.log("reqTime", reqTime);
-      // console.log("typeof reqTime", typeof(reqTime));
-
+      const reqTime = new Date(result.rows[0].required_time).getTime();
       const newTime = new Date(reqTime + additionalTime);
-      // console.log("to iso string", newTime);
 
       const queryParams = [ newTime, order_id ]
 
@@ -132,10 +116,6 @@ module.exports = (db) => {
         })
     })
   });
-
-  router.get('/addTime', (req, res) => {
-    router.redirect("")
-  })
 
   const getItems = (orderId, items) => {
     const result = [];
