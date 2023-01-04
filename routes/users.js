@@ -6,22 +6,24 @@
  */
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 module.exports = (db) => {
   router.get('/', (req, res) => {
     res.render('users');
   });
 
+  const { sendClientText, sendRestoText } = require('./twilio.js');
+
   // route to create menu items /users/createMenu
   router.get('/createMenu', (req, res) => {
     return db
-    .query(
-      `SELECT *
+      .query(
+        `SELECT *
       FROM menu_items`
       )
-    .then((result) => {
-      return res.json(result.rows);
-    })
+      .then((result) => {
+        return res.json(result.rows);
+      })
   });
 
 
@@ -59,40 +61,41 @@ module.exports = (db) => {
   router.post('/complete_order', (req, res) => {
     console.log(req.body);
     database.addOrderToDatabase()
-    .then(user => {
-      if (!user) {
-        res.send({error: "error"});
-        return;
-      }
-      req.session.userId = user.id;
-      res.send("🤗");
-    })
-    .catch(e => res.send(e));
+      .then(user => {
+        if (!user) {
+          res.send({ error: "error" });
+          return;
+        }
+        req.session.userId = user.id;
+        // sendClientText('# goes here', 'time goes here')
+        res.send("🤗");
+      })
+      .catch(e => res.send(e));
   });
 
   router.get('/generateOrders', (req, res) => {
     return db
-    .query(`SELECT * FROM orders;`)
-    .then((result) => {
-      console.log("++++", result.rows);
-      const orders = result.rows;
+      .query(`SELECT * FROM orders;`)
+      .then((result) => {
+        console.log("++++", result.rows);
+        const orders = result.rows;
 
-      return db.query(`SELECT *
+        return db.query(`SELECT *
       FROM orders_menu_items
       JOIN menu_items ON orders_menu_items.menu_item_id = menu_items.id;`)
-      .then((result2) => {
-        console.log("----", result2.rows);
-        orders.forEach(order => {
-          order.items = getItems(order.id, result2.rows);
-        });
+          .then((result2) => {
+            console.log("----", result2.rows);
+            orders.forEach(order => {
+              order.items = getItems(order.id, result2.rows);
+            });
 
-        console.log("After orders...", orders);
+            console.log("After orders...", orders);
 
 
-        return res.json(orders);
+            return res.json(orders);
 
+          })
       })
-    })
   });
 
   const getItems = (orderId, items) => {
@@ -119,4 +122,4 @@ module.exports = (db) => {
 
 
   return router;
-  }
+}
