@@ -75,27 +75,49 @@ module.exports = (db) => {
 
   router.get('/generateOrders', (req, res) => {
     return db
-      .query(`SELECT * FROM orders;`)
-      .then((result) => {
-        console.log("++++", result.rows);
-        const orders = result.rows;
+    .query(`SELECT * FROM orders;`)
+    .then((result) => {
+      const orders = result.rows;
 
         return db.query(`SELECT *
       FROM orders_menu_items
       JOIN menu_items ON orders_menu_items.menu_item_id = menu_items.id;`)
-          .then((result2) => {
-            console.log("----", result2.rows);
-            orders.forEach(order => {
-              order.items = getItems(order.id, result2.rows);
-            });
-
-            console.log("After orders...", orders);
-
+      .then((result2) => {
+        orders.forEach(order => {
+          order.items = getItems(order.id, result2.rows);
+        });
 
             return res.json(orders);
 
-          })
       })
+    })
+  });
+
+  router.post('/addTime', (req, res) => {
+    // increase required_time
+    const order_id = req.body["order_id"];
+
+    let additionalTime = req.body["extra-time"];
+    additionalTime = additionalTime * 60000;
+
+    return db
+    .query(`SELECT * FROM orders WHERE orders.id = $1;`, [order_id])
+    .then((result) => {
+      // calculate new time
+      const reqTime = new Date(result.rows[0].required_time).getTime();
+      const newTime = new Date(reqTime + additionalTime);
+
+      const queryParams = [ newTime, order_id ]
+
+      return db
+      .query(`UPDATE orders
+              SET required_time = $1
+              WHERE id = $2
+              RETURNING *;`, queryParams)
+        .then((result) => {
+          return res.redirect('/restaurant');
+        })
+    })
   });
 
   const getItems = (orderId, items) => {
