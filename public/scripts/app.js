@@ -38,9 +38,9 @@ const createMenuItem = function(menuItem) {
 function incrementClick(idNum) {
   if (typeof(Storage) !== "undefined") {
     if (localStorage.getItem(idNum)) {
-      let attempts = parseInt(localStorage.getItem(idNum));
-      // console.log(`storage value for key, ${idNum} = ${attempts}`);
-      localStorage.setItem(`${idNum}`, ++attempts);
+      let clicks = parseInt(localStorage.getItem(idNum));
+      // console.log(`storage value for key, ${idNum} = ${clicks}`);
+      localStorage.setItem(`${idNum}`, ++clicks);
     } else {
       localStorage.setItem(`${idNum}`, 1);
     }
@@ -56,9 +56,9 @@ function decrementClick(idNum) {
       if (Number(localStorage[idNum]) === 0) {
         localStorage.removeItem(idNum)
       }
-    } 
+    }
     renderCurrentOrderPane();
-  } 
+  }
 };
 function renderCurrentOrderPane() {
   document.getElementById("cart_items").innerHTML = "";
@@ -74,7 +74,7 @@ function renderCurrentOrderPane() {
       // push keys to array, sort and return by sorted
       if (typeof localStorage[key] !== "function" && key !== "length") {
         document.getElementById("cart_items").innerHTML += `<li>${localStorage[key]} times x ${allMenuItems[key-1].name} name $${allMenuItems[key-1].price * localStorage[key] / 100} price</li>`
-        
+
         // moMoneyCalculator (move out calculations)
         netOrder = netOrder + allMenuItems[key-1].price * localStorage[key];
         taxes = Math.round(netOrder * 0.13);
@@ -82,10 +82,10 @@ function renderCurrentOrderPane() {
       }
     }
     document.getElementById("fees_box").innerHTML += `
-      <p>  $${(netOrder/100).toFixed(2)} net</p>  
-      <p>+ $${(fees/100).toFixed(2)} fees</p>  
-      <p>+ $${(taxes/100).toFixed(2)} taxes</p> 
-      <p> ----- </p> 
+      <p>  $${(netOrder/100).toFixed(2)} net</p>
+      <p>+ $${(fees/100).toFixed(2)} fees</p>
+      <p>+ $${(taxes/100).toFixed(2)} taxes</p>
+      <p> ----- </p>
       <p>$${(totalOrder/100).toFixed(2)}</p>`;
   }
   currentTotals.fee = fees;
@@ -99,15 +99,19 @@ const confirmOrder = () => {
 }
 
 const completeOrder = () => {
-  // take cart items from addCartItem
-  // take total cost
-  // export to database
+
+    // Insert statements:
+    // INSERT INTO users (name, phone) VALUES ();
+    // (FOR EACH menu item) - INSERT INTO orders_menu_items (quantity) VALUES ();
+    // INSERT INTO orders (total_cost, tax, created) VALUES ();
+
+
   localStorage.clear();
 }
 const cancelOrder = () => {
   localStorage.clear();
   renderCurrentOrderPane();
-}; 
+};
 
 //SCRIPTS
 // onload
@@ -129,6 +133,7 @@ $(document).ready(function() {
     total: 0
   };
   $("confirm").click(function(){
+
     completeOrder();
     // $.post("/users/completeOrder")
   });

@@ -24,7 +24,7 @@ module.exports = (db) => {
     })
   });
 
- 
+
   // router.post('/completePersonalInfo', (req, res) => {
   //   return db
   //   .query(
@@ -53,6 +53,22 @@ module.exports = (db) => {
   //     orderMenuItems(res);
   //   })
   // });
+
+
+  // Currently testing
+  router.post('/complete_order', (req, res) => {
+    console.log(req.body);
+    database.addOrderToDatabase()
+    .then(user => {
+      if (!user) {
+        res.send({error: "error"});
+        return;
+      }
+      req.session.userId = user.id;
+      res.send("🤗");
+    })
+    .catch(e => res.send(e));
+  });
 
   // const orderMenuItems = (orderID) => {
   //   return db
