@@ -60,6 +60,7 @@ function decrementClick(idNum) {
     renderTotals();
   }
 };
+// Render right pane current order menu items (cart items)
 function renderCurrentOrderPane() {
   document.getElementById("cart_items").innerHTML = "";
 
@@ -72,7 +73,7 @@ function renderCurrentOrderPane() {
     }
   }
 };
-// Calculate cost and fees
+// Calculate cost and fees for cart items
 function calculateTotals() {
   let grossOrder = 0;
   let fees = 300;
@@ -95,7 +96,7 @@ function calculateTotals() {
     "totalCost": totalOrder
   }
 }
-// Render cost and fees
+// Render cost and fees for cart items
 function renderTotals() {
   document.getElementById("fees_box").innerHTML = "";
   let feesObject = calculateTotals();
@@ -108,26 +109,16 @@ function renderTotals() {
       <p>$${(feesObject.totalCost/100).toFixed(2)}</p>`;
 }
 
-// Meant to pull the storage cart from local session
-function pullStorageCart () {
-
-}
-
 
 const confirmOrder = () => {
   // confirm name & phone #
 }
-
-
 const completeOrder = () => {
-
     // Insert statements:
     // INSERT INTO users (name, phone) VALUES ();
     // (FOR EACH menu item) - INSERT INTO orders_menu_items (quantity) VALUES ();
       // Use pullStorageCart function
     // INSERT INTO orders (total_cost, tax, created) VALUES ();
-
-
   localStorage.clear();
 }
 const cancelOrder = () => {
@@ -155,11 +146,7 @@ $(document).ready(function() {
   currentOrderCart = {localStorage};
   currentTotals = {};
 
-
-
-
   $("confirm").click(function(){
-
     completeOrder();
     // $.post("/users/completeOrder")
   });
