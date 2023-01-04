@@ -4,7 +4,7 @@
 
 //FUNCTIONS
 //  MENU ITEM GENERATION
-const renderMenuItems = function(menuItems) {
+const renderMenu = function(menuItems) {
   for (let menuItem of menuItems) {
     let $menuItem = createMenuItem(menuItem);
     $('.menu_box').append($menuItem);
@@ -35,20 +35,16 @@ const createMenuItem = function(menuItem) {
 
 //  CART GENERATION/MODIFICATION
 // Increment sesion storage per menu item by ID
-
 function incrementClick(idNum) {
   if (typeof(Storage) !== "undefined") {
     if (localStorage.getItem(idNum)) {
       let clicks = parseInt(localStorage.getItem(idNum));
-      // console.log(`storage value for key, ${idNum} = ${clicks}`);
       localStorage.setItem(`${idNum}`, ++clicks);
     } else {
       localStorage.setItem(`${idNum}`, 1);
     }
     renderCurrentOrderPane();
     renderTotals();
-
-    // console.log("localstorage", localStorage)
   }
 };
 // Decrement session storage per menu item by ID
@@ -66,40 +62,18 @@ function decrementClick(idNum) {
 };
 function renderCurrentOrderPane() {
   document.getElementById("cart_items").innerHTML = "";
-  document.getElementById("fees_box").innerHTML = "";
-
-  // let netOrder = 0;
-  // let fees = 300;
-  // let taxes = 0;
-  // let totalOrder = 0;
 
   if (typeof(Storage) !== "undefined") {
     for (key in localStorage) {
       // push keys to array, sort and return by sorted
       if (typeof localStorage[key] !== "function" && key !== "length") {
         document.getElementById("cart_items").innerHTML += `<li>${localStorage[key]} times x ${allMenuItems[key-1].name} name $${allMenuItems[key-1].price * localStorage[key] / 100} price</li>`
-
-        // // moMoneyCalculator (move out calculations)
-        // netOrder = netOrder + allMenuItems[key-1].price * localStorage[key];
-        // taxes = Math.round(netOrder * 0.13);
-        // totalOrder = netOrder + fees + taxes;
       }
     }
-    // document.getElementById("fees_box").innerHTML += `
-    //   <p>  $${(netOrder/100).toFixed(2)} net</p>
-    //   <p>+ $${(fees/100).toFixed(2)} fees</p>
-    //   <p>+ $${(taxes/100).toFixed(2)} taxes</p>
-    //   <p> ----- </p>
-    //   <p>$${(totalOrder/100).toFixed(2)}</p>`;
   }
-
-  // currentTotals.fee = fees;
-  // currentTotals.tax = taxes;
-  // currentTotals.total = totalOrder;
 };
-
 // Calculate cost and fees
-function calculateTotals () {
+function calculateTotals() {
   let grossOrder = 0;
   let fees = 300;
   let taxes = 0;
@@ -121,10 +95,9 @@ function calculateTotals () {
     "totalCost": totalOrder
   }
 }
-
 // Render cost and fees
-function renderTotals () {
-
+function renderTotals() {
+  document.getElementById("fees_box").innerHTML = "";
   let feesObject = calculateTotals();
 
   document.getElementById("fees_box").innerHTML += `
@@ -171,13 +144,14 @@ $(document).ready(function() {
 
   $.get("/users/createMenu")
     .then((response) => {
-      renderMenuItems(response);
+      renderMenu(response);
+      renderCurrentOrderPane();
+      renderTotals();
       // console.log(response);
     });
 
 // currentOrderCart init on load
   allMenuItems = [];
-  renderTotals();
   currentOrderCart = {localStorage};
   currentTotals = {};
 
