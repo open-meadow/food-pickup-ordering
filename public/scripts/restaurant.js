@@ -24,6 +24,7 @@ const generateItem = function (items) {
 
 // creates single order item
 const createOrderItem = function (order) {
+  console.log("order", order);
 
   // get start time from datetime
   const time = order.created.split("T");
@@ -66,7 +67,7 @@ const createOrderItem = function (order) {
   `;
 
   if (!order.completed) {
-    if(order.created === order.required_time) {
+    if (order.created === order.required_time) {
       $order += `
     <form action="/send-sms" class="time-form" method="POST">
               <input
@@ -79,17 +80,37 @@ const createOrderItem = function (order) {
   </section>
 </section>`;
     } else {
+
+      let id_name = "order_" + order.id;
+      $order += `<div id=${id_name}></div>`;
+
+      let reqDate = new Date(order.required_time).getTime();
+      let createdDate = new Date(order.created).getTime();
+
+      console.log("req date", reqDate);
+      console.log("created date", createdDate);
+
+      // console.log("time difference", (reqDate - createdDate));
+      const timeDifference = reqDate - createdDate;
+      let newTime = new Date(timeDifference).getTime();
+      console.log("time difference", newTime);
+
+      setInterval((id_name) => {
+        let currentTime = new Date();
+        let remaining = reqDate - currentTime;
+
+        const now = msToTime(remaining);
+        // console.log("now1", now);
+        // console.log(id_name);
+        document.getElementById(`${id_name}`).innerHTML = now;
+      }, 1000, id_name)
+
+      // console.log("time difference to string", timeDifference.toString());
+      // console.log("countdown value", countdown);
+
       $order += `
-    <form action="/send-sms" class="time-form" method="POST">
-              <input
-                type="text"
-                id="time"
-                placeholder="Time till order finishes"
-              />
-    <button type="submit">Submit</button>
-    </form>
-  </section>
-</section>`;
+          </section>
+        </section>`;
     }
   } else {
     // get start time from datetime
@@ -104,6 +125,20 @@ const createOrderItem = function (order) {
 
   return $order;
 };
+
+// converts milliseconds to time. source: https://stackoverflow.com/a/19700358
+function msToTime(duration) {
+  let milliseconds = Math.floor((duration % 1000) / 100),
+    seconds = Math.floor((duration / 1000) % 60),
+    minutes = Math.floor((duration / (1000 * 60)) % 60),
+    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
+  return hours + ":" + minutes + ":" + seconds;
+}
 
 $(document).ready(function () {
   console.log("restaurant....ACTIVATE!!!!");
@@ -174,17 +209,6 @@ $(document).ready(function () {
           !singleResponse.completed &&
           singleResponse.created !== singleResponse.required_time
         ) {
-          let reqDate = new Date(singleResponse.required_time);
-          let createdDate = new Date(singleResponse.created);
-
-          console.log("req date", reqDate);
-          console.log("created date", createdDate);
-
-          console.log("time difference", (reqDate.getTime() - createdDate.getTime()));
-          const timeDifference = reqDate.getTime() - createdDate.getTime();
-          console.log(typeof(timeDifference));
-          console.log("time difference to string", timeDifference.toString());
-
           correctItems.push(singleResponse);
         }
       }
