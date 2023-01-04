@@ -32,6 +32,7 @@ const createMenuItem = function(menuItem) {
   console.log(allMenuItems)
   return $menuItem;
 };
+
 //  CART GENERATION/MODIFICATION
 // Increment sesion storage per menu item by ID
 
@@ -91,18 +92,60 @@ function renderCurrentOrderPane() {
   currentTotals.fee = fees;
   currentTotals.tax = taxes;
   currentTotals.total = totalOrder;
-  console.log(currentTotals);
+  console.log(localStorage);
 };
+
+// Calculate cost and fees
+function calculateTotals () {
+  let grossOrder = 0;
+  let fees = 300;
+  let taxes = 0;
+  let totalOrder = 0;
+
+  if (typeof(Storage) !== "undefined") {
+    for (key in localStorage) {
+      if (typeof localStorage[key] !== "function" && key !== "length") {
+        grossOrder += allMenuItems[key-1].price * localStorage[key];
+        taxes = Math.round(netOrder * 0.13);
+        totalOrder = netOrder + fees + taxes;
+      }
+    }
+  }
+  return {
+    "gross": grossOrder,
+    "fees": fees,
+    "taxes": taxes,
+    "totalCost": totalOrder
+  }
+}
+
+// Render cost and fees
+function renderTotals (object) {
+  document.getElementById("fees_box").innerHTML += `
+      <p>  $${(object.gross/100).toFixed(2)} net</p>
+      <p>+ $${(object.fees/100).toFixed(2)} fees</p>
+      <p>+ $${(object.taxes/100).toFixed(2)} taxes</p>
+      <p> ----- </p>
+      <p>$${(object.totalCost/100).toFixed(2)}</p>`;
+}
+
+// Meant to pull the storage cart from local session
+function pullStorageCart () {
+
+}
+
 
 const confirmOrder = () => {
   // confirm name & phone #
 }
+
 
 const completeOrder = () => {
 
     // Insert statements:
     // INSERT INTO users (name, phone) VALUES ();
     // (FOR EACH menu item) - INSERT INTO orders_menu_items (quantity) VALUES ();
+      // Use pullStorageCart function
     // INSERT INTO orders (total_cost, tax, created) VALUES ();
 
 
@@ -117,21 +160,23 @@ const cancelOrder = () => {
 // onload
 $(document).ready(function() {
   console.log("website is loaded ok");
+
+  let cartObject = {};
+
   $.get("/users/createMenu")
     .then((response) => {
       renderMenuItems(response);
       // console.log(response);
     });
+
 // currentOrderCart init on load
-  currentOrderCart = {};
-  console.log("cart initialized", typeof(currentOrderCart));
+  currentOrderCart = {localStorage};
+  console.log(localStorage)
+
   allMenuItems = [];
-  console.log("menu cart initialized");
-  currentTotals = {
-    fee: 0,
-    tax: 0,
-    total: 0
-  };
+
+
+
   $("confirm").click(function(){
 
     completeOrder();
