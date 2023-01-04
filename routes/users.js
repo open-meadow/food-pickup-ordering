@@ -12,7 +12,7 @@ module.exports = (db) => {
     res.render('users');
   });
 
-  const { sendClientText, sendRestoText } = require('./twilio.js');
+  const { sendClientText, sendRestoText } = require('../db/queries/twilio');
 
   // route to create menu items /users/createMenu
   router.get('/createMenu', (req, res) => {
