@@ -58,17 +58,41 @@ module.exports = (db) => {
   // Currently testing
   router.post('/complete_order', (req, res) => {
     console.log(req.body);
-    database.addOrderToDatabase()
-    .then(user => {
-      if (!user) {
-        res.send({error: "error"});
-        return;
-      }
-      req.session.userId = user.id;
-      res.send("🤗");
-    })
-    .catch(e => res.send(e));
+
+    let name = req.body.name;
+    let phone = req.body.phone;
+    let cart = req.body.cart;
+    console.log(cart)
+
+    for (menuitem in cart) {
+      menuItemId = menuitem.split('_')[2]
+      console.log(menuItemId);
+    }
+
+    // return db
+    // .query(
+    //   `INSERT INTO USERS (name, phone)
+    //     VALUES ($1, $2)
+    //     RETURNING ID`,
+    //     [name, phone]
+    // )
+
+
+
+    // database.addOrderToDatabase()
+    // .then(user => {
+    //   if (!user) {
+    //     res.send({error: "error"});
+    //     return;
+    //   }
+    //   req.session.userId = user.id;
+    //   res.send("🤗");
+    // })
+    // .catch(e => res.send(e));
   });
+
+
+
 
   router.get('/generateOrders', (req, res) => {
     return db

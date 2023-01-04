@@ -10,6 +10,7 @@ const renderMenu = function(menuItems) {
     $('.menu_box').append($menuItem);
   }
 };
+
 const createMenuItem = function(menuItem) {
   let $menuItem = (
     `<div id = "${menuItem.id}" class = "menu_item">
@@ -46,7 +47,8 @@ function incrementClick(idNum) {
     renderCurrentOrderPane();
     renderTotals();
   }
-};
+}
+
 // Decrement session storage per menu item by ID
 function decrementClick(idNum) {
   if (typeof(Storage) !== "undefined") {
@@ -59,7 +61,8 @@ function decrementClick(idNum) {
     renderCurrentOrderPane();
     renderTotals();
   }
-};
+}
+
 // Render right pane current order menu items (cart items)
 function renderCurrentOrderPane() {
   document.getElementById("cart_items").innerHTML = "";
@@ -71,7 +74,8 @@ function renderCurrentOrderPane() {
       }
     }
   }
-};
+}
+
 // Calculate cost and fees for cart items
 function calculateTotals() {
   let grossOrder = 0;
@@ -95,6 +99,21 @@ function calculateTotals() {
     "totalCost": totalOrder
   }
 }
+
+// Create cart object
+function createCartObj () {
+let currentOrderCart = {};
+
+  if (typeof(Storage) !== "undefined") {
+      for (key in localStorage) {
+        if (typeof localStorage[key] !== "function" && key !== "length") {
+          currentOrderCart[`menu_item_${key}`] = localStorage[key]
+        }
+      }
+    }
+    return currentOrderCart;
+}
+
 // Render cost and fees for cart items
 function renderTotals() {
   document.getElementById("fees_box").innerHTML = "";
@@ -114,33 +133,46 @@ const confirmOrder = (fieldname, fieldphone) => {
   // sessionStorage.name = fieldname
   // sessionStorage.phone = fieldphone
 }
-const completeOrder = () => {
+const completeOrder = (userInfo) => {
   // INSERT USERS FROM SESSION STORAGE <== different function?
   // INSERT INTO users (name, phone) VALUES () RETURNING id; from localstage confirmOrder
   // $.post the order insert from  object
-  
+
   // INSERT ORDERS (TOTAL) FROM FUNCTION <== different function?
     // let x = calculateTotals();
     // x.user_id (from comfirm Order <-> local storage), x.total_cost, x.fees, x.tax, x.timestamp (generate)
-    // INSERT INTO orders (total_cost, tax, created) VALUES ();  
-  
+    // INSERT INTO orders (total_cost, tax, created) VALUES ();
+
   // INSERT ORDERS_MENU_ITEM FROM FUNCTION
-    if (typeof(Storage) !== "undefined") {
-      for (key in localStorage) {
-        if (typeof localStorage[key] !== "function" && key !== "length") {
-          currentOrderCart[key] = localStorage[key]
-        }
-      }
-    };
+    // if (typeof(Storage) !== "undefined") {
+    //   for (key in localStorage) {
+    //     if (typeof localStorage[key] !== "function" && key !== "length") {
+    //       currentOrderCart[key] = localStorage[key]
+    //     }
+    //   }
+    // };
     // console.log(currentOrderCart)
     // (FOR EACH menu item) - INSERT INTO orders_menu_items (quantity) VALUES ();
-    for (key in currentOrderCart) {
-      // POST INSERT
-    };
-  localStorage.clear();
-  sessionStorage.clear();
-}; 
-const cancelOrder = () => {
+    // for (key in currentOrderCart) {
+    //   // POST INSERT
+    // };
+
+  let databaseInfo = {};
+  databaseInfo.name = userInfo.name;
+  databaseInfo.phone = userInfo.phone;
+  databaseInfo.cart = createCartObj();
+
+  console.log(databaseInfo);
+
+  // Everyhting above will be creating the object of info needed to pass to server
+
+  $.post("/users/complete_order", databaseInfo)
+
+  clearOrder();
+
+};
+
+const clearOrder = () => {
   localStorage.clear();
   sessionStorage.clear();
   renderCurrentOrderPane();
@@ -152,25 +184,42 @@ const cancelOrder = () => {
 $(document).ready(function() {
   console.log("website is loaded ok");
 
-  let cartObject = {};
-
   $.get("/users/createMenu")
     .then((response) => {
       renderMenu(response);
       renderCurrentOrderPane();
       renderTotals();
-      // console.log(response);
     });
 
 // currentOrderCart init on load
   allMenuItems = [];
-  currentOrderCart = {};
 
-  $("confirm").click(function(){
-    completeOrder();
-    // $.post("/users/completeOrder")
+// confirm order button
+  $("#confirm").click(function(){
+    $("#myModal").css("display", "block");
   });
+
+  $("#close_order_button").click(function() {
+    $("#myModal").css("display", "none");
+  })
+
+  $("#complete_order_button").click(function (event) {
+    event.preventDefault();
+
+    let userInfo = {};
+    userInfo.name = $('#name').val();
+    userInfo.phone = $('#phone').val();
+
+    completeOrder(userInfo);
+
+    $("#myModal").css("display", "none");
+  })
+
 });
+
+
+
+
 
 // HEADER SCRIPTS TO BE IMPLEMENTED
   // $(cart).onclick
