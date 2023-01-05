@@ -131,7 +131,7 @@ module.exports = (db) => {
     return db
       .query(lateQuery)
       .then((result) => {
-        // sendRestoText(orderID);
+        sendRestoText(orderID);
       })
       .catch((err) => {
         console.log("DB write error:", err);
@@ -191,7 +191,7 @@ module.exports = (db) => {
             queryParams
           )
           .then((result) => {
-            // sendClientText(`${phoneNumber}`, `${req.body["extra-time"]}`);
+            sendClientText(`${phoneNumber}`, `${req.body["extra-time"]}`);
             return res.redirect("/restaurant");
           });
       })
