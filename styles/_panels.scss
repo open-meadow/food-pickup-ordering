@@ -6,6 +6,7 @@
   flex-wrap: nowrap;
   background-color: #EEEEEE;
   padding: 1%;
+  max-width: 35vh
 }
 
 @mixin panelBox () {
@@ -14,6 +15,7 @@
   margin-bottom: 1em;
   width: auto;
   padding: 1em;
+  min-height: 20vh
 }
 
 @mixin buttonStyle ($background, $hoverColor) {
