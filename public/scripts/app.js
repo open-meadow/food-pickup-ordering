@@ -183,16 +183,16 @@ const addConfirmation = () => {
     const orderId = result[0].id;
     const createdTime = result[0].created;
     const requiredTime = result[0].required_time;
-    let query;
+    let text;
     if (createdTime === requiredTime) {
-      query = `
+      text = `
       <div>
         <p>ID: ${result[0].id}</p>
         <p>Waiting for restaurant to confirm your order</p>
       </div>
       `
     } else {
-      query = `
+      text = `
       <div>
         <p>ID: ${result[0].id}</p>
         <p>Created Time: ${result[0].created}</p>
@@ -201,7 +201,7 @@ const addConfirmation = () => {
       </div>
     `;
     }
-    $("#right-pane").prepend(query);
+    $("#right-pane").prepend(text);
   })
 }
 // till here
@@ -211,7 +211,6 @@ const addConfirmation = () => {
   $(document).ready(function() {
     allMenuItems = [];
     console.log("website is loaded ok");
-    sessionStorage["orderTrue"] = false;
 
   $.get("/users/getUpdateTime")
     .then((response) => {
@@ -256,8 +255,8 @@ const addConfirmation = () => {
 
     $("#myModal").css("display", "none");
 
-    addConfirmation();
   })
 
+  addConfirmation();
 
 });
