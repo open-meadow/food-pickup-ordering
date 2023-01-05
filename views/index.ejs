@@ -26,6 +26,21 @@
     </header>
     <section class = "main_body pure-g">
 
+      <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal_content">
+          <p>Please enter your name and phone number to complete your order</p>
+          <form class ="customer_info">
+            <input type="text" id="name" placeholder="Name">
+            <input type="text" id="phone" placeholder="Phone">
+            <button type="submit" class="btn btn-success" id="complete_order_button" >Confirm</button>
+            <button type="submit" class="btn btn-fail" id="close_order_button" >Cancel</button>
+          </form>
+        </div>
+
+      </div>
+
   <!-- MENU SECTION -->
   <section class = "menu_body pure-u-18-24">
         <h1> Menu</h1>
@@ -41,6 +56,9 @@
             </form>
           </div>
         </div>
+
+
+
         <section class = "cart_icon">
         </section>
           <!-- Menu -->
