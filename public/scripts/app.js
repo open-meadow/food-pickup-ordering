@@ -30,7 +30,6 @@ const createMenuItem = function(menuItem) {
     descrip: menuItem.descrip,
     price: menuItem.price,
   })
-  // console.log(allMenuItems)
   return $menuItem;
 };
 
@@ -134,7 +133,6 @@ const completeOrder = (userInfo) => {
   databaseInfo.phone = userInfo.phone;
   databaseInfo.cart = createCartObj();
   databaseInfo.totals = calculateTotals();
-  console.log(databaseInfo);
 
   $.post("/users/complete_order", databaseInfo)
   clearOrder();
@@ -152,8 +150,6 @@ function timer() {
   const timestamp = currentDate.getTime();;
   let timeDiff = Math.ceil((expectedTime - timestamp) / 1000);
 
-  console.log("timeDiff "+expectedTime+' - '+timestamp);
-
   if(timeDiff >= 0){
     let minutes = Math.floor(timeDiff / 60);
     let seconds = timeDiff - minutes * 60;
@@ -165,7 +161,7 @@ function timer() {
     }
   }
   if (timeDiff < 0) {
-      document.getElementById("order_timer").innerHTML = `Expected order overdue.`;
+      document.getElementById("order_timer").innerHTML = `Order pending.`;
     }
   }
 
@@ -173,13 +169,6 @@ function timer() {
 const addConfirmation = () => {
   $.get("/users/complete_order")
   .then((result) => {
-    // console.log("complete order result", result[0]);
-
-    // sessionStorage.setItem("id", result[0].id);
-    // sessionStorage.setItem("created", result[0].created);
-    // sessionStorage.setItem("required_time", result[0].required_time);
-    // console.log("Session storage value", sessionStorage);
-
     const orderId = result[0].id;
     const createdTime = result[0].created;
     const requiredTime = result[0].required_time;
@@ -210,13 +199,10 @@ const addConfirmation = () => {
   // onload
   $(document).ready(function() {
     allMenuItems = [];
-    console.log("website is loaded ok");
 
   $.get("/users/getUpdateTime")
     .then((response) => {
-      console.log(response[0].required_time);
       expectedTime = new Date (response[0].required_time);
-      console.log(expectedTime);
 
       if (localStorage) {
         setInterval(timer, 1000);
