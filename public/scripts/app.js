@@ -151,43 +151,81 @@ function timer() {
   const currentDate = new Date();
   const timestamp = currentDate.getTime();;
   let timeDiff = Math.ceil((expectedTime - timestamp) / 1000);
-  
+
   console.log("timeDiff "+expectedTime+' - '+timestamp);
-  
-  if(timeDiff >= 0){ 
+
+  if(timeDiff >= 0){
     let minutes = Math.floor(timeDiff / 60);
     let seconds = timeDiff - minutes * 60;
 
     if (seconds >= 10) {
       document.getElementById("order_timer").innerHTML = `Expected order time: ${minutes}:${seconds}`;
     } else {
-      document.getElementById("order_timer").innerHTML = `Expected order time: ${minutes}:0${seconds}`;  
+      document.getElementById("order_timer").innerHTML = `Expected order time: ${minutes}:0${seconds}`;
     }
-  } 
+  }
   if (timeDiff < 0) {
       document.getElementById("order_timer").innerHTML = `Expected order overdue.`;
     }
   }
-    
+
+// add confirmation
+const addConfirmation = () => {
+  $.get("/users/complete_order")
+  .then((result) => {
+    // console.log("complete order result", result[0]);
+
+    // sessionStorage.setItem("id", result[0].id);
+    // sessionStorage.setItem("created", result[0].created);
+    // sessionStorage.setItem("required_time", result[0].required_time);
+    // console.log("Session storage value", sessionStorage);
+
+    const orderId = result[0].id;
+    const createdTime = result[0].created;
+    const requiredTime = result[0].required_time;
+    let query;
+    if (createdTime === requiredTime) {
+      query = `
+      <div>
+        <p>ID: ${result[0].id}</p>
+        <p>Waiting for restaurant to confirm your order</p>
+      </div>
+      `
+    } else {
+      query = `
+      <div>
+        <p>ID: ${result[0].id}</p>
+        <p>Created Time: ${result[0].created}</p>
+        <p>Required Time: ${result[0].required_time}</p>
+        <p>Completed: ${result[0].completed}</p>
+      </div>
+    `;
+    }
+    $("#right-pane").prepend(query);
+  })
+}
+// till here
+
   //SCRIPTS
   // onload
   $(document).ready(function() {
     allMenuItems = [];
     console.log("website is loaded ok");
-  
+    sessionStorage["orderTrue"] = false;
+
   $.get("/users/getUpdateTime")
     .then((response) => {
-      console.log(response[0].required_time);  
+      console.log(response[0].required_time);
       expectedTime = new Date (response[0].required_time);
       console.log(expectedTime);
-      
+
       if (localStorage) {
         setInterval(timer, 1000);
       } else {
         document.getElementById("order_timer").innerHTML = "";
-      } 
-    }) 
-              
+      }
+    })
+
   $.get("/users/createMenu")
     .then((response) => {
       renderMenu(response);
@@ -217,5 +255,9 @@ function timer() {
     completeOrder(userInfo);
 
     $("#myModal").css("display", "none");
+
+    addConfirmation();
   })
+
+
 });
