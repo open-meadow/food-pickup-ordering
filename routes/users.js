@@ -67,6 +67,7 @@ const { sendClientText, sendRestoText } = require("../db/queries/twilio.js")
 
       // initialize values to send to database
       const created = new Date();
+      console.log("created", created.toString());
       const required_time = created;
       const completed = false;
 
@@ -151,7 +152,7 @@ const { sendClientText, sendRestoText } = require("../db/queries/twilio.js")
       const newTime = new Date(reqTime + additionalTime);
 
       let phoneNumber = Number(result.rows[0].phone);
-      console.log("result.rows", result.rows[0].phone);
+      // console.log("result.rows", result.rows[0].phone);
 
       const queryParams = [ newTime, order_id ]
 
@@ -161,9 +162,13 @@ const { sendClientText, sendRestoText } = require("../db/queries/twilio.js")
               WHERE id = $2
               RETURNING *;`, queryParams)
         .then((result) => {
-          sendClientText(`${phoneNumber}`, `${req.body["extra-time"]}`);
+          // sendClientText(`${phoneNumber}`, `${req.body["extra-time"]}`);
           return res.redirect('/restaurant');
         })
+    })
+    .catch((err) => {
+      console.log("no required-time yet")
+      console.log("why are you running right now?");
     })
   });
 
