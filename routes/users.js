@@ -172,7 +172,23 @@ const { sendClientText, sendRestoText } = require("../db/queries/twilio.js")
     })
   });
 
-const getItems = (orderId, items) => {
+  router.post('/updateComplete', (req, res) => {
+    console.log("updateComplete req.body", req.body);
+    let order_id = req.body.order_id;
+
+    return db
+    .query(`
+        UPDATE orders
+        SET completed = $1
+        WHERE id = $2
+        RETURNING *;
+    `, [true, order_id])
+    .then((result) => {
+      return res.redirect('/restaurant');
+    })
+  })
+
+  const getItems = (orderId, items) => {
     const result = [];
     for (const item of items) {
       if (item.order_id === orderId) {

@@ -93,7 +93,7 @@ const createOrderItem = function (order) {
       // console.log("req date", new Date(reqDate));
 
       let newTime = new Date().getTime();
-      newTime += 60000;
+      newTime += 5000;
 
 
       const timer = setInterval((id_name) => {
@@ -112,8 +112,19 @@ const createOrderItem = function (order) {
         if(timeDifference < 0) {
           clearInterval(timer);
           document.getElementById(`${id_name}`).innerHTML = "Time up";
-          order.completed = true;
-          return;
+          // order.completed = true;
+          // return;
+          document.getElementById(`${id_name}`).innerHTML += `
+          <div>
+            <form action="/users/updateComplete" class="time-form" method="POST">
+              <input type="hidden" name="order_id" value="${order.id}"/>
+              <button type="submit">click here</button>
+            </form>
+          </div>`
+          // $.post("users/updateComplete")
+          // .then((response) => {
+          //   console.log("compleeeete");
+          // })
         }
 
       }, 1000, id_name)
@@ -217,12 +228,12 @@ $(document).ready(function () {
   });
 
   // post button - onclick
-  $.post("/users/addTime")
-  .then((res) => {
-    console.log("cool");
-  })
-  .catch((err) => {
-    console.log("who cares");
-  })
+  // $.post("/users/addTime")
+  // .then((res) => {
+  //   console.log("cool");
+  // })
+  // .catch((err) => {
+  //   console.log("who cares");
+  // })
 
 });
