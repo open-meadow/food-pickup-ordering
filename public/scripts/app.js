@@ -180,10 +180,48 @@ const clearOrder = () => {
   renderTotals();
 };
 
+// add confirmation
+const addConfirmation = () => {
+  $.get("/users/complete_order")
+  .then((result) => {
+    // console.log("complete order result", result[0]);
+
+    // sessionStorage.setItem("id", result[0].id);
+    // sessionStorage.setItem("created", result[0].created);
+    // sessionStorage.setItem("required_time", result[0].required_time);
+    // console.log("Session storage value", sessionStorage);
+
+    const orderId = result[0].id;
+    const createdTime = result[0].created;
+    const requiredTime = result[0].required_time;
+    let query;
+    if (createdTime === requiredTime) {
+      query = `
+      <div>
+        <p>ID: ${result[0].id}</p>
+        <p>Waiting for restaurant to confirm your order</p>
+      </div>
+      `
+    } else {
+      query = `
+      <div>
+        <p>ID: ${result[0].id}</p>
+        <p>Created Time: ${result[0].created}</p>
+        <p>Required Time: ${result[0].required_time}</p>
+        <p>Completed: ${result[0].completed}</p>
+      </div>
+    `;
+    }
+    $("#right-pane").prepend(query);
+  })
+}
+// till here
+
 //SCRIPTS
 // onload
 $(document).ready(function() {
   console.log("website is loaded ok");
+  sessionStorage["orderTrue"] = false;
 
   $.get("/users/createMenu")
     .then((response) => {
@@ -218,7 +256,10 @@ $(document).ready(function() {
     completeOrder(userInfo);
 
     $("#myModal").css("display", "none");
+
+    addConfirmation();
   })
+
 
 });
 
