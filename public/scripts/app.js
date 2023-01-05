@@ -32,7 +32,6 @@ const createMenuItem = function(menuItem) {
     descrip: menuItem.descrip,
     price: menuItem.price,
   })
-  // console.log(allMenuItems)
   return $menuItem;
 };
 
@@ -129,50 +128,16 @@ function renderTotals() {
       <p> Total: $${(feesObject.totalCost/100).toFixed(2)}</p>`;
 }
 
-const confirmOrder = (fieldname, fieldphone) => {
-  // confirm name & phone #
-  // place into session storage
-  // sessionStorage.name = fieldname
-  // sessionStorage.phone = fieldphone
-}
 const completeOrder = (userInfo) => {
-  // INSERT USERS FROM SESSION STORAGE <== different function?
-  // INSERT INTO users (name, phone) VALUES () RETURNING id; from localstage confirmOrder
-  // $.post the order insert from  object
-
-  // INSERT ORDERS (TOTAL) FROM FUNCTION <== different function?
-    // let x = calculateTotals();
-    // x.user_id (from comfirm Order <-> local storage), x.total_cost, x.fees, x.tax, x.timestamp (generate)
-    // INSERT INTO orders (total_cost, tax, created) VALUES ();
-
-  // INSERT ORDERS_MENU_ITEM FROM FUNCTION
-    // if (typeof(Storage) !== "undefined") {
-    //   for (key in localStorage) {
-    //     if (typeof localStorage[key] !== "function" && key !== "length") {
-    //       currentOrderCart[key] = localStorage[key]
-    //     }
-    //   }
-    // };
-    // console.log(currentOrderCart)
-    // (FOR EACH menu item) - INSERT INTO orders_menu_items (quantity) VALUES ();
-    // for (key in currentOrderCart) {
-    //   // POST INSERT
-    // };
-
+  // Create the object of info needed to pass to server
   let databaseInfo = {};
   databaseInfo.name = userInfo.name;
   databaseInfo.phone = userInfo.phone;
   databaseInfo.cart = createCartObj();
   databaseInfo.totals = calculateTotals();
 
-  console.log(databaseInfo);
-
-  // Everyhting above will be creating the object of info needed to pass to server
-
   $.post("/users/complete_order", databaseInfo)
-
   clearOrder();
-
 };
 
 const clearOrder = () => {
@@ -182,10 +147,54 @@ const clearOrder = () => {
   renderTotals();
 };
 
-//SCRIPTS
-// onload
-$(document).ready(function() {
-  console.log("website is loaded ok");
+function timer() {
+  const currentDate = new Date();
+  const timestamp = currentDate.getTime();;
+  let timeDiff = Math.ceil((expectedTime - timestamp) / 1000);
+
+  if(timeDiff >= 0){
+    let minutes = Math.floor(timeDiff / 60);
+    let seconds = timeDiff - minutes * 60;
+
+    if (seconds >= 10) {
+      document.getElementById("order_timer").innerHTML = `Expected order time: ${minutes}:${seconds}`;
+    } else {
+      document.getElementById("order_timer").innerHTML = `Expected order time: ${minutes}:0${seconds}`;
+    }
+  }
+  if (timeDiff < 0) {
+      document.getElementById("order_timer").innerHTML = `Order pending.`;
+    }
+  }
+
+// add confirmation
+const addConfirmation = () => {
+  $.get("/users/complete_order")
+  .then((result) => {
+    let text = `
+        <p>ID: ${result[0].id}</p>
+    `;
+
+    $("#last_order").prepend(text);
+  })
+}
+// till here
+
+  //SCRIPTS
+  // onload
+  $(document).ready(function() {
+    allMenuItems = [];
+
+  $.get("/users/getUpdateTime")
+    .then((response) => {
+      expectedTime = new Date (response[0].required_time);
+
+      if (localStorage) {
+        setInterval(timer, 1000);
+      } else {
+        document.getElementById("order_timer").innerHTML = "";
+      }
+    })
 
   $.get("/users/createMenu")
     .then((response) => {
@@ -193,10 +202,6 @@ $(document).ready(function() {
       renderCurrentOrderPane();
       renderTotals();
     });
-
-// currentOrderCart init on load
-  allMenuItems = [];
-
 // confirm order button
   $("#confirm").click(function(){
     $("#myModal").css("display", "flex");
@@ -220,22 +225,9 @@ $(document).ready(function() {
     completeOrder(userInfo);
 
     $("#myModal").css("display", "none");
+
   })
 
+  addConfirmation();
+
 });
-
-
-
-
-
-// HEADER SCRIPTS TO BE IMPLEMENTED
-  // $(cart).onclick
-    // animate right pane appearing
-  // $(".cart_icon").click(function() {
-  //   $(".right_pane pure-u-1-5").toggle(500);
-  // });
-
-//RIGHT PANE SCRIPTS TO BE IMPLEMENTED
-  // $(submit order) onclick push all to DB
-    // send fees, taxes, totalcost to orders table
-    // send each object with attached usersID to orders_menu_items table
