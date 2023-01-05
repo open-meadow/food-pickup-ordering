@@ -4,10 +4,18 @@
   align-items: center;
 }
 
+.order-items {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 75%
+}
+
 .order-item {
   background-color: floralwhite;
   padding: 1em;
-  width: 100em;
+  width: 75%;
   margin: 1em 0;
 }
 

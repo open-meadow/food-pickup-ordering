@@ -1,6 +1,6 @@
 // GENERAL PANEL STYLING
 @mixin panelStyle () {
-  height: 100vh;
+  height: auto;
   display:flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -28,15 +28,6 @@
     background-color: $hoverColor;
   }
   }
-
-// LEFT PANE
-.left_pane {
-  @include panelStyle();
-  section {
-    background-color: #D9D9D9;
-    padding: 2%;
-  }
-}
 
 // RIGHT PANE
 .right_pane {
