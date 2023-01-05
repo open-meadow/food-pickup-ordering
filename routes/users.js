@@ -148,7 +148,7 @@ const { sendClientText, sendRestoText } = require("../db/queries/twilio.js")
       [order_id])
     .then((result) => {
       // calculate new time
-      const reqTime = new Date(result.rows[0].required_time).getTime();
+      const reqTime = new Date().getTime();
       const newTime = new Date(reqTime + additionalTime);
 
       let phoneNumber = Number(result.rows[0].phone);

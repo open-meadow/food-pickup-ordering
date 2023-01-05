@@ -86,21 +86,21 @@ const createOrderItem = function (order) {
       let id_name = "order_" + order.id;
       $order += `<div id=${id_name}></div>`;
 
-      // let reqDate = new Date(order.required_time).getTime();
-      // let createdDate = new Date(order.created).getTime();
+      let reqDate = new Date(order.required_time).getTime();
+      let createdDate = new Date(order.created).getTime();
 
       // console.log("order id", order.id);
-      // console.log("req date", new Date(reqDate));
+      console.log("req date", new Date(reqDate));
 
-      let newTime = new Date().getTime();
-      newTime += 5000;
+      sessionStorage.newTime = reqDate;
+      // sessionStorage.newTime += 60000;
 
 
       const timer = setInterval((id_name) => {
         // get current date and time
         let currentTime = new Date().getTime();
-        let timeDifference = newTime - currentTime;
-        console.log("order id", order.id, "time difference", new Date(timeDifference));
+        let timeDifference = sessionStorage.newTime - currentTime;
+        // console.log("order id", order.id, "time difference", new Date(timeDifference));
 
         // distance between currentTime and timeDifference
         // let remaining =  currentTime - timeDifference;
@@ -164,6 +164,8 @@ function msToTime(duration) {
 $(document).ready(function () {
   console.log("restaurant....ACTIVATE!!!!");
 
+  sessionStorage.newTime = new Date().getTime();
+
   // if 'new button' is pressed, show new orders
   $("#new-button").click(function () {
     $(".order-items").empty();
@@ -226,14 +228,5 @@ $(document).ready(function () {
   $.get("/users/generateOrders").then((response) => {
     renderOrders(response);
   });
-
-  // post button - onclick
-  // $.post("/users/addTime")
-  // .then((res) => {
-  //   console.log("cool");
-  // })
-  // .catch((err) => {
-  //   console.log("who cares");
-  // })
 
 });
