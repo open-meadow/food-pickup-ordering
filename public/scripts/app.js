@@ -197,7 +197,7 @@ $(document).ready(function() {
 
 // confirm order button
   $("#confirm").click(function(){
-    $("#myModal").css("display", "block");
+    $("#myModal").css("display", "flex");
   });
 
   $("#cancel").click(function(){
