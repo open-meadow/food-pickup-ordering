@@ -135,7 +135,7 @@ const createOrderItem = function (order) {
     }
   } else {
     // get start time from datetime
-    const finishedTime = order.created.split("T");
+    const finishedTime = order.required_time.split("T");
     finishedTime[1] = finishedTime[1].slice(0, finishedTime[1].length - 8);
 
     $order += `
