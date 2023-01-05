@@ -30,7 +30,7 @@ const createMenuItem = function(menuItem) {
     descrip: menuItem.descrip,
     price: menuItem.price,
   })
-  console.log(allMenuItems)
+  // console.log(allMenuItems)
   return $menuItem;
 };
 
