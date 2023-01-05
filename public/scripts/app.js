@@ -20,8 +20,10 @@ const createMenuItem = function(menuItem) {
         <span>$${(menuItem.price)/100}</span>
         <p>${menuItem.descrip}</p>
       </section>
-      <button type="button" onclick="incrementClick(${menuItem.id})">(+)</button>
-      <button type="button" onclick="decrementClick(${menuItem.id})">(-)</button>
+      <div class = "menu_item_buttons">
+        <button class = "increment_order" type="button" onclick="incrementClick(${menuItem.id})">(+)</button>
+        <button class = "decrement_order" type="button" onclick="decrementClick(${menuItem.id})">(-)</button>
+      </div>
     </div>`);
   allMenuItems.push({
     id: menuItem.id,

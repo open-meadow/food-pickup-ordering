@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   font-style: italic;
+  width:80%;
 
 
   .menu_box {
@@ -11,6 +12,8 @@
     flex-direction: column;
   }
 }
+
+
 
 .menu_item {
   display: flex;
@@ -24,6 +27,17 @@
   img {
     width: 200px;
     height: 100px;
+  }
+
+  .menu_item_buttons {
+    display:flex;
+    flex-direction: row;
+    .increment_order:hover {
+      background: #073D6F
+    }
+    .decrement_order:hover {
+      background: #073D6F
+    }
   }
 
   button {
