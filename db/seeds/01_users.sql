@@ -4,10 +4,7 @@ VALUES
 (
   1,
   'Alice',
-  'alice@amail.com',
-  'a',
-  '1111111111',
-  '2020-03-23 00:00'
+  '1111111111'
 );
 
 -- INSERT INTO users (name) VALUES ('Kira');
