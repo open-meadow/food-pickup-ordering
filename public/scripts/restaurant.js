@@ -87,23 +87,28 @@ const createOrderItem = function (order) {
       $order += `<div id=${id_name}></div>`;
 
       let reqDate = new Date(order.required_time).getTime();
-      let createdDate = new Date(order.created).getTime();
+      // let createdDate = new Date(order.created).getTime();
 
-      let timeDifference = reqDate - createdDate;
+      console.log("order id", order.id);
+      console.log("req date", new Date(reqDate));
 
-      setInterval((id_name) => {
+
+      const timer = setInterval((id_name) => {
         // get current date and time
         let currentTime = new Date();
+        let timeDifference = reqDate - currentTime;
+        console.log("time difference", new Date(timeDifference));
 
         // distance between currentTime and timeDifference
-        let remaining = timeDifference - currentTime;
+        // let remaining =  currentTime - timeDifference;
 
-        let now = msToTime(remaining);
+        let now = msToTime(timeDifference);
 
         document.getElementById(`${id_name}`).innerHTML = now;
 
-        if(remaining < 0) {
-          clearInterval();
+        if(timeDifference < 0) {
+          clearInterval(timer);
+          document.getElementById(`${id_name}`).innerHTML = "Time up";
           order.completed = true;
         }
 
@@ -134,9 +139,9 @@ function msToTime(duration) {
     minutes = Math.floor((duration / (1000 * 60)) % 60),
     hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
 
-  hours = hours < 10 ? "0" + hours : hours;
-  minutes = minutes < 10 ? "0" + minutes : minutes;
-  seconds = seconds < 10 ? "0" + seconds : seconds;
+  // hours = hours < 10 ? "0" + hours : hours;
+  // minutes = minutes < 10 ? "0" + minutes : minutes;
+  // seconds = seconds < 10 ? "0" + seconds : seconds;
 
   return hours + ":" + minutes + ":" + seconds;
 }
@@ -209,6 +214,9 @@ $(document).ready(function () {
 
   // post button - onclick
   $.post("/users/addTime")
+  .then((res) => {
+    console.log("cool");
+  })
   .catch((err) => {
     console.log("who cares");
   })
