@@ -161,6 +161,7 @@ const completeOrder = (userInfo) => {
   databaseInfo.name = userInfo.name;
   databaseInfo.phone = userInfo.phone;
   databaseInfo.cart = createCartObj();
+  databaseInfo.totals = calculateTotals();
 
   console.log(databaseInfo);
 

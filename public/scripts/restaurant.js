@@ -14,7 +14,7 @@ const generateItem = function (items) {
     <tr>
       <td>${item.name}</td>
       <td>${item.quantity}</td>
-      <td>$${(item.price * item.quantity) / 100}</td>
+      <td>$${(item.price) / 100}</td>
     </tr>
     `;
   }
