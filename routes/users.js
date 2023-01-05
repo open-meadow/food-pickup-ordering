@@ -13,6 +13,21 @@ module.exports = (db) => {
     res.render('users');
   });
 
+  // route to retrieve update-time from DB for client facing timer
+  router.get('/getUpdateTime', (req, res) => {
+    return db
+      .query (`
+        SELECT required_time
+        FROM orders 
+        WHERE id = (SELECT MAX(id) FROM orders)
+        `,
+      )
+      .then((result) => {
+        console.log(result.rows[0].required_time)
+        return res.json(result.rows);
+      })
+  });
+
   // route to create menu items /users/createMenu
   router.get('/createMenu', (req, res) => {
     return db
