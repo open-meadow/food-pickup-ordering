@@ -21,9 +21,9 @@ function sendClientText(clientPhone, orderTime) {
 function sendRestoText(bodyMSG) {
   return client.messages
   .create({
-    to: '+hard coded resto phone #',
+    to: process.env.MY_PHONE_NUMBER,
     messagingServiceSid: 'MG1722efd2941c77fbbb8a7d3aff316147',
-    body: `new order ${bodyMSG}`
+    body: `new order ID #${bodyMSG}`
   })
   .then (message => console.log(message.sid))
   .done();

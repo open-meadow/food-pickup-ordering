@@ -1,6 +1,5 @@
 /*
- * All routes for Users are defined here
- * Since this file is loaded in server.js into /users,
+ * All routes for Users are defined here * Since this file is loaded in server.js into /users,
  *   these routes are mounted onto /users
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
@@ -12,7 +11,7 @@ module.exports = (db) => {
     res.render('users');
   });
 
-const { sendClientText, sendRestoText } = require("../db/queries/twilio.js");
+const { sendClientText, sendRestoText } = require("../db/queries/twilio.js")
 
   // route to create menu items /users/createMenu
   router.get('/createMenu', (req, res) => {
@@ -24,7 +23,11 @@ const { sendClientText, sendRestoText } = require("../db/queries/twilio.js");
     .then((result) => {
       return res.json(result.rows);
     })
-  });
+
+
+
+
+    });
 
   // Currently testing
   router.post('/complete_order', (req, res) => {
@@ -36,25 +39,27 @@ const { sendClientText, sendRestoText } = require("../db/queries/twilio.js");
     let totalCost = req.body.totals["totalCost"];
     let fees = req.body.totals["fees"];
     let taxes = req.body.totals["taxes"];
+    let menuItemId;
+    let quantity = 0;
 
     console.log("totalCost", totalCost);
 
     console.log("Cart", cart)
+    let lateQuery = ``;
 
-    for (menuitem in cart) {
-      menuItemId = menuitem.split('_')[2]
-      console.log("Menu Item ID", menuItemId);
-    }
 
     return db
     .query(`
-      INSERT INTO USERS (name, phone)
-      VALUES ($1, $2)
-      RETURNING ID
-      `,
-      [`${req.body.name}`, `${req.body.phone}`]
+    INSERT INTO USERS (name, phone)
+    VALUES ($1, $2)
+    RETURNING ID
+    `,
+    [`${req.body.name}`, `${req.body.phone}`]
     )
     .then ((result) => {
+
+
+
       console.log("result.rows", result.rows[0]);
       const userID = result.rows[0].id;
 
@@ -69,40 +74,43 @@ const { sendClientText, sendRestoText } = require("../db/queries/twilio.js");
 
       return db
       .query(`
-        INSERT INTO orders (user_id, total_cost, fees, tax, created, required_time, completed)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
-        RETURNING id;
+      INSERT INTO orders (user_id, total_cost, fees, tax, created, required_time, completed)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      RETURNING id;
       `,
       queryParams)
       .then((result) => {
-        const orderID = result.rows[0];
-        const queryParams2 = [orderID, menu_item_id, quantity];
+        const orderID = result.rows[0].id;
+        lateQuery = `INSERT INTO orders_menu_items (order_id, menu_item_id, quantity) VALUES `
+        for (let menuitem in cart) {
+          menuItemId = menuitem.split('_')[2];
+          quantity = cart[menuitem];
 
+          lateQuery += `(${orderID}, ${menuItemId}, ${quantity}),`
+        }
+        lateQuery = lateQuery.slice(0, lateQuery.length - 1);
+        lateQuery += `;`
+
+        console.log("late query", lateQuery);
+        // const queryParams2 = [orderID, menuItemId, quantity];
         return db
-        .query(`
-          INSERT INTO orders_menu_items (order_id, menu_item_id, quantity)
-          VALUES ($1, $2, $3)
-        `, queryParams2)
+        .query(lateQuery)
         .then((result) => {
           console.log("Successsssssss!!!!!!")
+          sendRestoText(orderID);
         })
         .catch((err) => {
-          console.log("who cares");
+          console.log("who cares", err);
         })
-      })
-    })
-    // [req.body.cart] items
-    // database.addOrderToDatabase()
-    // .then(user => {
-    //   if (!user) {
-    //     res.send({error: "error"});
-    //     return;
-    //   }
-    //   req.session.userId = user.id;
-    //   res.send("🤗");
-    // })
-    // .catch(e => res.send(e));
+      });
+    });
   });
+
+
+
+
+
+
 
   router.get('/generateOrders', (req, res) => {
     return db

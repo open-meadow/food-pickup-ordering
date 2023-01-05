@@ -209,5 +209,8 @@ $(document).ready(function () {
 
   // post button - onclick
   $.post("/users/addTime")
+  .catch((err) => {
+    console.log("who cares");
+  })
 
 });
