@@ -81,7 +81,7 @@ function renderCurrentOrderPane() {
 // Calculate cost and fees for cart items
 function calculateTotals() {
   let grossOrder = 0;
-  let fees = 300;
+  let fees = 3000;
   let taxes = 0;
   let totalOrder = 0;
 
@@ -122,11 +122,11 @@ function renderTotals() {
   let feesObject = calculateTotals();
 
   document.getElementById("fees_box").innerHTML += `
-      <p>  $${(feesObject.gross/100).toFixed(2)} net</p>
-      <p>+ $${(feesObject.fees/100).toFixed(2)} fees</p>
-      <p>+ $${(feesObject.taxes/100).toFixed(2)} taxes</p>
-      <p> ----- </p>
-      <p>$${(feesObject.totalCost/100).toFixed(2)}</p>`;
+      <p> Subtotal: $${(feesObject.gross/100).toFixed(2)}</p>
+      <p> Fees: $${(feesObject.fees/100).toFixed(2)}</p>
+      <p> Taxes: $${(feesObject.taxes/100).toFixed(2)}</p>
+      <div class="horizontal_line"></div>
+      <p> Total: $${(feesObject.totalCost/100).toFixed(2)}</p>`;
 }
 
 const confirmOrder = (fieldname, fieldphone) => {
