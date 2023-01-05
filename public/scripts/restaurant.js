@@ -87,19 +87,21 @@ const createOrderItem = function (order) {
       $order += `<div id=${id_name}></div>`;
 
       let reqDate = new Date(order.required_time).getTime();
+
       let createdDate = new Date(order.created).getTime();
 
       // console.log("order id", order.id);
       console.log("req date", new Date(reqDate));
+      // console.log("created date", new Date(reqDate));
 
-      sessionStorage.newTime = reqDate;
+      sessionStorage["newTime_" + id_name] = reqDate;
       // sessionStorage.newTime += 60000;
 
 
       const timer = setInterval((id_name) => {
         // get current date and time
         let currentTime = new Date().getTime();
-        let timeDifference = sessionStorage.newTime - currentTime;
+        let timeDifference = sessionStorage["newTime_" + id_name] - currentTime;
         // console.log("order id", order.id, "time difference", new Date(timeDifference));
 
         // distance between currentTime and timeDifference
@@ -164,7 +166,7 @@ function msToTime(duration) {
 $(document).ready(function () {
   console.log("restaurant....ACTIVATE!!!!");
 
-  sessionStorage.newTime = new Date().getTime();
+  // sessionStorage["newTime_" + id_name] = new Date().getTime();
 
   // if 'new button' is pressed, show new orders
   $("#new-button").click(function () {
