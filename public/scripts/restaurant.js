@@ -86,18 +86,21 @@ const createOrderItem = function (order) {
       let id_name = "order_" + order.id;
       $order += `<div id=${id_name}></div>`;
 
-      let reqDate = new Date(order.required_time).getTime();
+      // let reqDate = new Date(order.required_time).getTime();
       // let createdDate = new Date(order.created).getTime();
 
-      console.log("order id", order.id);
-      console.log("req date", new Date(reqDate));
+      // console.log("order id", order.id);
+      // console.log("req date", new Date(reqDate));
+
+      let newTime = new Date().getTime();
+      newTime += 60000;
 
 
       const timer = setInterval((id_name) => {
         // get current date and time
-        let currentTime = new Date();
-        let timeDifference = reqDate - currentTime;
-        console.log("time difference", new Date(timeDifference));
+        let currentTime = new Date().getTime();
+        let timeDifference = newTime - currentTime;
+        console.log("order id", order.id, "time difference", new Date(timeDifference));
 
         // distance between currentTime and timeDifference
         // let remaining =  currentTime - timeDifference;
@@ -110,6 +113,7 @@ const createOrderItem = function (order) {
           clearInterval(timer);
           document.getElementById(`${id_name}`).innerHTML = "Time up";
           order.completed = true;
+          return;
         }
 
       }, 1000, id_name)
