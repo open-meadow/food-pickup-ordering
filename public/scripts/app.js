@@ -169,28 +169,11 @@ function timer() {
 const addConfirmation = () => {
   $.get("/users/complete_order")
   .then((result) => {
-    const orderId = result[0].id;
-    const createdTime = result[0].created;
-    const requiredTime = result[0].required_time;
-    let text;
-    if (createdTime === requiredTime) {
-      text = `
-      <div>
+    let text = `
         <p>ID: ${result[0].id}</p>
-        <p>Waiting for restaurant to confirm your order</p>
-      </div>
-      `
-    } else {
-      text = `
-      <div>
-        <p>ID: ${result[0].id}</p>
-        <p>Created Time: ${result[0].created}</p>
-        <p>Required Time: ${result[0].required_time}</p>
-        <p>Completed: ${result[0].completed}</p>
-      </div>
     `;
-    }
-    $("#right-pane").prepend(text);
+
+    $("#last_order").prepend(text);
   })
 }
 // till here
