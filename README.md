@@ -13,9 +13,6 @@ Screenshot of Client Page
 Screenshot of Order Pane in Mobile View
 !["Screenshot of Client Page"](https://github.com/open-meadow/food-pickup-ordering/blob/70006b0aabb33e4856bc05c40aef3c6bd41b8041/docs/localhost_8080_%20(2).png)
 
-Screenshot of Menu Pane in Mobile View
-!["Screenshot of Menu Pane in Mobile View"](https://github.com/open-meadow/food-pickup-ordering/blob/70006b0aabb33e4856bc05c40aef3c6bd41b8041/docs/localhost_8080_%20(3).png)
-
 Screenshot of Confirm Prompt
 !["Screenshot of Confirm Prompt"](https://github.com/open-meadow/food-pickup-ordering/blob/70006b0aabb33e4856bc05c40aef3c6bd41b8041/docs/localhost_8080_%20(5).png)
 
