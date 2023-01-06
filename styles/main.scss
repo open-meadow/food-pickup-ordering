@@ -91,5 +91,12 @@ body {
     flex-direction: column;
     align-items: center;
     }
+    #name {
+      margin-bottom: 5px;
+    }
+    #complete_order_button, #cancel_order_button {
+      margin-bottom: 5px;
+      margin-top: 5px;
+    }
 }
 
