@@ -61,6 +61,8 @@
     display: flex;
     flex-direction: column;
     padding: 0em 1em;
+    white-space: word-wrap;
+    width: 250px; 
   }
 
 }

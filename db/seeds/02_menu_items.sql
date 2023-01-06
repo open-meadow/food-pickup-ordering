@@ -1,43 +1,43 @@
 INSERT INTO menu_items (name, photo_url, descrip, price)
 VALUES (
-  'hi',
-  'https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg',
-  'Lorem ipsum dolor sit amet:',
+  'Croissant Cangreburger',
+  'https://thumbs.dreamstime.com/z/croissant-burger-meatballs-cheddar-cheese-tomatoes-croissant-burger-meatballs-cheddar-cheese-tomatoes-fast-food-106409830.jpg',
+  '!Ven a gastar tu dinero aqui!',
   1001
 ),
 (
-  'hi2',
+  'Krabby Patty',
   'https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg',
-  'Lorem ipsum dolor sit amet:',
+  'Come Spend Your Money Here!',
   1002
 ),
 (
-  'hi3',
-  'https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg',
-  'Lorem ipsum dolor sit amet:',
+  'Chicken Fingers',
+  'https://images.pexels.com/photos/11118936/pexels-photo-11118936.jpeg',
+  'Don not lick your fingers after consumption.',
   1003
 ),
 (
-  'hi4',
+  'Patteau de Krabb',
   'https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg',
-  'Lorem ipsum dolor sit amet:',
+  'Venez depenser votre argent ici!',
   1004
 ),
 (
-  'hi5',
-  'https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg',
-  'Lorem ipsum dolor sit amet:',
+  'Omelete du Fromage',
+  'https://images.pexels.com/photos/4141026/pexels-photo-4141026.jpeg',
+  'You cannot make a good omelette with bad eggs.',
   1005
 ),
 (
-  'hi6',
-  'https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg',
-  'Lorem ipsum dolor sit amet:',
+  'Dumbbucks',
+  'https://images.pexels.com/photos/1235706/pexels-photo-1235706.jpeg',
+  'To inspire and nurture the human spirit',
   1006
 ),
 (
-  'hi7',
-  'https://4.bp.blogspot.com/-jVIeFuFIhjE/WmSaPH8yEiI/AAAAAAAAAGw/hEhlpQkI6y8lnnaCZeg0ojQf8mHLB23zQCEwYBhgL/w1200-h630-p-k-no-nu/Krabby+P.jpg',
-  'Lorem ipsum dolor sit amet:',
+  'Banh Mi Kep Thit',
+  'https://images.pexels.com/photos/6646072/pexels-photo-6646072.jpeg',
+  'Hay thieu thien cua ban o day!',
   1007
 );

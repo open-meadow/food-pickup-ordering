@@ -70,7 +70,7 @@ function renderCurrentOrderPane() {
   if (typeof(Storage) !== "undefined") {
     for (key in localStorage) {
       if (typeof localStorage[key] !== "function" && key !== "length") {
-        document.getElementById("cart_items").innerHTML += `<li>${localStorage[key]} times x ${allMenuItems[key-1].name} name $${allMenuItems[key-1].price * localStorage[key] / 100} price</li>`
+        document.getElementById("cart_items").innerHTML += `<li>${localStorage[key]} x ${allMenuItems[key-1].name} - $${allMenuItems[key-1].price * localStorage[key] / 100}</li>`
       }
     }
   }

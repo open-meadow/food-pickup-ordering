@@ -36,6 +36,10 @@
     text-align:center;
   }
 
+  background: #f7ede0;
+  opacity: 0.95;
+  border-left: 1px solid black;
+
 .cart_items, .fees_box {
   @include panelBox;
   .horizontal_line {
