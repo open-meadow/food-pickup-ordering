@@ -70,4 +70,4 @@ Screenshot of Finished Orders
 - There may be an issue where the timer in `localhost:8080/restaurant` does not work, and immediately shows "Time Up". This has only affected <i>my</i> computer <i>sometimes</i>, and I have not been able to reliably reproduce it.
 - The timer in `localhost:8080/restaurant` may show `NaN:NaN:NaN` upon first loading. This usually goes away after a refresh or after inserting a value and submitting.
 <br></br>
-[^1]: On the bright side, if you know who we are, and you are willing to put in the effort of authenticating Twilio, you can potentially pull a life-destroying prank on one developer ().
+[^1]: On the bright side, if you know who we are, and you are willing to put in the effort of authenticating Twilio, you can potentially pull a life-destroying prank.
