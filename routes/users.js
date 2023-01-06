@@ -18,7 +18,7 @@ module.exports = (db) => {
     return db
       .query (`
         SELECT required_time
-        FROM orders 
+        FROM orders
         WHERE id = (SELECT MAX(id) FROM orders)
         `,
       )
@@ -155,7 +155,7 @@ module.exports = (db) => {
     });
   });
 
-// Change update time 
+// Change update time
   router.post("/addTime", (req, res) => {
     // increase timer required_time
     const order_id = req.body["order_id"];
@@ -194,10 +194,11 @@ module.exports = (db) => {
           .catch((err) => {
             console.log("Invalid phone #:", err);
             return res.redirect("/restaurant");
-          });       
+          });
       })
       .catch((err) => {
-        console.log("Error", err);
+        console.log("Error", err.message);
+        return res.redirect("/restaurant");
       });
   });
 
