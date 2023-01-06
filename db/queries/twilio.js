@@ -7,6 +7,7 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
+// Send SMS to client
 function sendClientText(clientPhone, orderTime) {
   return client.messages
   .create({
@@ -18,7 +19,7 @@ function sendClientText(clientPhone, orderTime) {
   .catch (error => console.log(error))
   .done();
 };
-
+// Send SMS to restaurant (phone # from ENV)
 function sendRestoText(bodyMSG) {
   return client.messages
   .create({
