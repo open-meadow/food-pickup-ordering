@@ -18,17 +18,12 @@ const generateItem = function (items) {
     </tr>
     `;
   }
-
   return row;
 };
 
 // create timer
 const createTimer = (order, id_name) => {
   let reqDate = new Date(order.required_time).getTime();
-
-  let createdDate = new Date(order.created).getTime();
-  console.log("req date", new Date(reqDate));
-
   sessionStorage["newTime_" + id_name] = reqDate;
 
   const timer = setInterval(
@@ -37,15 +32,10 @@ const createTimer = (order, id_name) => {
       let currentTime = new Date().getTime();
       let timeDifference = sessionStorage["newTime_" + id_name] - currentTime;
 
-      let now = msToTime(timeDifference);
-
-      document.getElementById(`${id_name}`).innerHTML = now;
-
+      document.getElementById(`${id_name}`).innerHTML = `${msToTime(timeDifference)}`;
       if (timeDifference < 0) {
         clearInterval(timer);
         document.getElementById(`${id_name}`).innerHTML = "Time up";
-        // order.completed = true;
-        // return;
         document.getElementById(`${id_name}`).innerHTML += `
           <div>
             <form action="/users/updateComplete" class="time-form" method="POST">
@@ -62,9 +52,9 @@ const createTimer = (order, id_name) => {
   return timer;
 };
 
-// creates single order item
+// Creates single order item
 const createOrderItem = function (order) {
-  // get start time from datetime
+  // Get start time from datetime
   const time = order.created.split("T");
   time[1] = time[1].slice(0, time[1].length - 8);
 
@@ -98,10 +88,8 @@ const createOrderItem = function (order) {
           </table>
 
           <section class="time-values">
-            <span>Created at: ${time[1]}</span>
-
+            <span>Created at: ${time[1]} UTC</span>
   `;
-
   if (!order.completed) {
     if (order.created === order.required_time) {
       $order += `
@@ -123,15 +111,14 @@ const createOrderItem = function (order) {
     } else {
       let id_name = "order_" + order.id;
       $order += `<div id=${id_name}></div>`;
-      // create interactive timer
+      // Create interactive timer
       createTimer(order, id_name);
-
       $order += `
           </section>
         </section>`;
     }
   } else {
-    // get required time from datetime
+    // Get required time from datetime
     const finishedTime = order.required_time.split("T");
     finishedTime[1] = finishedTime[1].slice(0, finishedTime[1].length - 8);
 
@@ -140,23 +127,22 @@ const createOrderItem = function (order) {
         </section>
       </section>`;
   }
-
   return $order;
 };
 
-// converts milliseconds to time. source: https://stackoverflow.com/a/19700358
+// Converts milliseconds to time. source: https://stackoverflow.com/a/19700358
 function msToTime(duration) {
-  let seconds = Math.floor((duration / 1000) % 60),
+  let 
+    seconds = Math.floor((duration / 1000) % 60),
     minutes = Math.floor((duration / (1000 * 60)) % 60),
     hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
 
   return hours + ":" + minutes + ":" + seconds;
-}
+};
 
-// if 'new button' is pressed, show new orders
+// If 'new button' is pressed, show new orders
 const showNewOrders = () => {
   $(".order-items").empty();
-
   $.get("/users/generateOrders").then((response) => {
     const correctItems = [];
     for (const singleResponse of response) {
@@ -168,12 +154,11 @@ const showNewOrders = () => {
         correctItems.push(singleResponse);
       }
     }
-
     renderOrders(correctItems);
   });
 };
 
-// if 'completed button' is pressed, show completed orders
+// If 'completed button' is pressed, show completed orders
 const showCompletedOrders = () => {
   $(".order-items").empty();
 
@@ -185,15 +170,13 @@ const showCompletedOrders = () => {
         correctItems.push(singleResponse);
       }
     }
-
     renderOrders(correctItems);
   });
 };
 
-// if pending button is pressed
+// If pending button is pressed
 const showPendingOrders = () => {
   $(".order-items").empty();
-
   $.get("/users/generateOrders").then((response) => {
     const correctItems = [];
 
@@ -206,14 +189,12 @@ const showPendingOrders = () => {
         correctItems.push(singleResponse);
       }
     }
-
     renderOrders(correctItems);
   });
 };
 
+//  SCRIPTS
 $(document).ready(function () {
-  console.log("restaurant....ACTIVATE!!!!");
-
   // button presses
   $("#new-button").click(showNewOrders);
   $("#completed-button").click(showCompletedOrders);
@@ -224,5 +205,3 @@ $(document).ready(function () {
     renderOrders(response);
   });
 });
-
-module.exports = createTimer(order, id_name)

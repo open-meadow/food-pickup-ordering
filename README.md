@@ -19,6 +19,10 @@ The following steps are only for _one_ of the group members to perform.
   - username: `labber` 
   - password: `labber` 
   - database: `midterm`
+  - TWILIO_ACCOUNT_SID = "Twilio account SID code"
+  - TWILIO_AUTH_TOKEN = "Twilio authentication token code"
+  - MY_PHONE_NUMBER = "+1[10 digit phone number no spaces]" 
+  Please note that the Twilio details will not function without several additional steps to register for your own Twilio (trial) account and set up SMS messaging for all numbers from: https://www.twilio.com/
 3. Install dependencies: `npm i`
 4. Fix to binaries for sass: `npm rebuild node-sass`
 5. Reset database: `npm run db:reset`
@@ -42,3 +46,7 @@ The following steps are only for _one_ of the group members to perform.
 - Node 10.x or above
 - NPM 5.x or above
 - PG 6.x
+- Twilio
+- Express
+- Nodemon
+- Sass

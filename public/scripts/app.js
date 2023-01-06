@@ -1,9 +1,7 @@
 // Client facing scripts here
-
-// const { getUsers } = require('db/queries/users.js');
-
 //FUNCTIONS
 //  MENU ITEM GENERATION
+// Loop through menu items from DB and call render function for each
 const renderMenu = function(menuItems) {
   for (let menuItem of menuItems) {
     let $menuItem = createMenuItem(menuItem);
@@ -11,6 +9,7 @@ const renderMenu = function(menuItems) {
   }
 };
 
+// Create HTML body for each menu item passed in
 const createMenuItem = function(menuItem) {
   let $menuItem = (
     `<div id = "${menuItem.id}" class = "menu_item">
@@ -35,7 +34,7 @@ const createMenuItem = function(menuItem) {
   return $menuItem;
 };
 
-//  CART GENERATION/MODIFICATION
+// CART GENERATION/MODIFICATION
 // Increment sesion storage per menu item by ID
 function incrementClick(idNum) {
   if (typeof(Storage) !== "undefined") {
@@ -48,7 +47,7 @@ function incrementClick(idNum) {
     renderCurrentOrderPane();
     renderTotals();
   }
-}
+};
 
 // Decrement session storage per menu item by ID
 function decrementClick(idNum) {
@@ -62,7 +61,7 @@ function decrementClick(idNum) {
     renderCurrentOrderPane();
     renderTotals();
   }
-}
+};
 
 // Render right pane current order menu items (cart items)
 function renderCurrentOrderPane() {
@@ -75,7 +74,7 @@ function renderCurrentOrderPane() {
       }
     }
   }
-}
+};
 
 // Calculate cost and fees for cart items
 function calculateTotals() {
@@ -99,7 +98,7 @@ function calculateTotals() {
     "taxes": taxes,
     "totalCost": totalOrder
   }
-}
+};
 
 // Create cart object
 function createCartObj () {
@@ -113,7 +112,7 @@ let currentOrderCart = {};
       }
     }
     return currentOrderCart;
-}
+};
 
 // Render cost and fees for cart items
 function renderTotals() {
@@ -126,8 +125,9 @@ function renderTotals() {
       <p> Taxes: $${(feesObject.taxes/100).toFixed(2)}</p>
       <div class="horizontal_line"></div>
       <p> Total: $${(feesObject.totalCost/100).toFixed(2)}</p>`;
-}
+};
 
+// Call complete order post route, insert information in object to DB
 const completeOrder = (userInfo) => {
   // Create the object of info needed to pass to server
   let databaseInfo = {};
@@ -140,6 +140,7 @@ const completeOrder = (userInfo) => {
   clearOrder();
 };
 
+// Clear localstorage cart & sessionstorage
 const clearOrder = () => {
   localStorage.clear();
   sessionStorage.clear();
@@ -147,6 +148,7 @@ const clearOrder = () => {
   renderTotals();
 };
 
+// Count down timer on latest order from DB
 function timer() {
   const currentDate = new Date();
   const timestamp = currentDate.getTime();;
@@ -165,9 +167,9 @@ function timer() {
   if (timeDiff < 0) {
       document.getElementById("order_timer").innerHTML = `Order pending.`;
     }
-  }
-
-// add confirmation
+  };
+  
+// Add order ID of last order
 const addConfirmation = () => {
   $.get("/users/complete_order")
   .then((result) => {
@@ -177,11 +179,10 @@ const addConfirmation = () => {
 
     $("#last_order").prepend(text);
   })
-}
-// till here
+};
 
-  //SCRIPTS
-  // onload
+//SCRIPTS
+//  onload
   $(document).ready(function() {
     allMenuItems = [];
 
@@ -194,7 +195,7 @@ const addConfirmation = () => {
       } else {
         document.getElementById("order_timer").innerHTML = "";
       }
-    })
+    });
 
   $.get("/users/createMenu")
     .then((response) => {
@@ -202,7 +203,7 @@ const addConfirmation = () => {
       renderCurrentOrderPane();
       renderTotals();
     });
-// confirm order button
+
   $("#confirm").click(function(){
     $("#myModal").css("display", "flex");
   });
@@ -213,7 +214,7 @@ const addConfirmation = () => {
 
   $("#close_order_button").click(function() {
     $("#myModal").css("display", "none");
-  })
+  });
 
   $("#complete_order_button").click(function (event) {
     event.preventDefault();
@@ -225,9 +226,7 @@ const addConfirmation = () => {
     completeOrder(userInfo);
 
     $("#myModal").css("display", "none");
-
-  })
-
+  });
+  
   addConfirmation();
-
 });

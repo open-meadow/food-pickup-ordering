@@ -7,6 +7,7 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
+// Send SMS to client
 function sendClientText(clientPhone, orderTime) {
   return client.messages
   .create({
@@ -15,9 +16,10 @@ function sendClientText(clientPhone, orderTime) {
     body: `Your order will be ready for pickup in ${Math.ceil(orderTime)} minutes.`
   })
   .then(message => console.log(message.sid))
+  .catch (error => console.log(error))
   .done();
 };
-
+// Send SMS to restaurant (phone # from ENV)
 function sendRestoText(bodyMSG) {
   return client.messages
   .create({
@@ -26,6 +28,7 @@ function sendRestoText(bodyMSG) {
     body: `new order ID #${bodyMSG}`
   })
   .then (message => console.log(message.sid))
+  .catch (error => console.log(error))
   .done();
 };
 
