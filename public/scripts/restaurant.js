@@ -37,9 +37,7 @@ const createTimer = (order, id_name) => {
       let currentTime = new Date().getTime();
       let timeDifference = sessionStorage["newTime_" + id_name] - currentTime;
 
-      let now = msToTime(timeDifference);
-
-      document.getElementById(`${id_name}`).innerHTML = now;
+      document.getElementById(`${id_name}`).innerHTML = `${msToTime(timeDifference)}`;
 
       if (timeDifference < 0) {
         clearInterval(timer);
@@ -224,5 +222,3 @@ $(document).ready(function () {
     renderOrders(response);
   });
 });
-
-module.exports = createTimer(order, id_name)

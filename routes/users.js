@@ -193,7 +193,11 @@ module.exports = (db) => {
           .then((result) => {
             sendClientText(`${phoneNumber}`, `${req.body["extra-time"]}`);
             return res.redirect("/restaurant");
-          });
+          })
+          .catch((err) => {
+            console.log("Invalid phone #:", err);
+            return res.redirect("/restaurant");
+          });       
       })
       .catch((err) => {
         console.log("Error", err);

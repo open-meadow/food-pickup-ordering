@@ -15,6 +15,7 @@ function sendClientText(clientPhone, orderTime) {
     body: `Your order will be ready for pickup in ${Math.ceil(orderTime)} minutes.`
   })
   .then(message => console.log(message.sid))
+  .catch (error => console.log(error))
   .done();
 };
 
@@ -26,6 +27,7 @@ function sendRestoText(bodyMSG) {
     body: `new order ID #${bodyMSG}`
   })
   .then (message => console.log(message.sid))
+  .catch (error => console.log(error))
   .done();
 };
 
