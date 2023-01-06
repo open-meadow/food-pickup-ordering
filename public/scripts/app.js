@@ -123,6 +123,7 @@ function renderTotals() {
       <p> Subtotal: $${(feesObject.gross/100).toFixed(2)}</p>
       <p> Fees: $${(feesObject.fees/100).toFixed(2)}</p>
       <p> Taxes: $${(feesObject.taxes/100).toFixed(2)}</p>
+      <hr>
       <div class="horizontal_line"></div>
       <p> Total: $${(feesObject.totalCost/100).toFixed(2)}</p>`;
 };
@@ -168,7 +169,7 @@ function timer() {
       document.getElementById("order_timer").innerHTML = `Order pending.`;
     }
   };
-  
+
 // Add order ID of last order
 const addConfirmation = () => {
   $.get("/users/complete_order")
@@ -177,7 +178,7 @@ const addConfirmation = () => {
         <p>ID: ${result[0].id}</p>
     `;
 
-    $("#last_order").prepend(text);
+    $("#order_timer").prepend(text);
   })
 };
 
@@ -227,6 +228,10 @@ const addConfirmation = () => {
 
     $("#myModal").css("display", "none");
   });
-  
+
+  $(".cart_icon").click(() => {
+    $(".right_pane").slideToggle();
+  })
+
   addConfirmation();
 });

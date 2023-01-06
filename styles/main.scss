@@ -37,6 +37,13 @@ body {
   }
   .right_pane {
     width: 100%;
+    display: none;
+    top: 5em;
+    position: fixed;
+    z-index: 1;
+    background-color: white;
+    overflow-y: scroll;
+    height: 100%;
   }
 
 }
