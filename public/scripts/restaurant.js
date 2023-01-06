@@ -96,8 +96,7 @@ const createOrderItem = function (order) {
           </table>
 
           <section class="time-values">
-            <span>Created at: ${time[1]}</span>
-
+            <span>Created at: ${time[1]} UTC</span>
   `;
 
   if (!order.completed) {
