@@ -124,9 +124,10 @@ function renderTotals() {
       <p> Fees: $${(feesObject.fees/100).toFixed(2)}</p>
       <p> Taxes: $${(feesObject.taxes/100).toFixed(2)}</p>
       <hr>
-      <div class="horizontal_line"></div>
+      <!-- <div class="horizontal_line"></div> -->
       <p> Total: $${(feesObject.totalCost/100).toFixed(2)}</p>`;
-};
+    };
+
 
 // Call complete order post route, insert information in object to DB
 const completeOrder = (userInfo) => {
@@ -229,8 +230,17 @@ const addConfirmation = () => {
     $("#myModal").css("display", "none");
   });
 
+  // when screen is small, this shows and hides the cart
+  let hidden = false;
   $(".cart_icon").click(() => {
-    $(".right_pane").slideToggle();
+    hidden = !hidden;
+    $(".right_pane").slideToggle(() => {
+      if(hidden) {
+        $("body").css("overflow", "hidden");
+      } else {
+        $("body").css("overflow", "auto");
+      }
+    });
   })
 
   addConfirmation();
