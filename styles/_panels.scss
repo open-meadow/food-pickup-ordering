@@ -27,7 +27,7 @@
   &:hover {
     background-color: $hoverColor;
   }
-  }
+}
 
 // RIGHT PANE
 .right_pane {
@@ -40,7 +40,7 @@
   opacity: 0.95;
   border-left: 1px solid black;
 
-.cart_items, .fees_box {
+.cart_items, .fees_box, #order_timer {
   @include panelBox;
   .horizontal_line {
     background-color: grey;

@@ -5,6 +5,17 @@ $primaryBlue : #155A9A;
 @import "./panels";
 @import "./modal";
 
+@mixin rightPaneMedia () {
+  display: none;
+  top: 5em;
+  position: fixed;
+  z-index: 1;
+  background-color: white;
+  overflow:auto;
+  height: 90%;
+  opacity: 1;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -37,6 +48,7 @@ body {
   }
   .right_pane {
     width: 100%;
+    @include rightPaneMedia;
   }
 
 }

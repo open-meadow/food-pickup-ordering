@@ -6,4 +6,13 @@ header {
   text-align: center;
   border-bottom: 1px black;
   border-bottom-style: solid;
+  position: sticky;
+  top: 0em;
+  z-index: 1;
+
+  .cart_icon {
+    flex: none;
+    right: 0em;
+    top: 1em;
+  }
 }
